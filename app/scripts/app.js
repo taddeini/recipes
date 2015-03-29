@@ -40,6 +40,5 @@ var TodoApp = React.createClass({
   }
 });
 
-
 React.render(<TodoApp />, mountNode);
 
