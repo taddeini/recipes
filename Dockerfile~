@@ -1,8 +1,0 @@
-FROM phusion/baseimage:0.9.16
-RUN apt-get update
-RUN apt-get -y install node npm build-essential
-RUN npm install
-
-EXPOSE 3000
-
-CMD ["node", ./bin/www"]
