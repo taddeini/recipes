@@ -2,12 +2,11 @@
 using Microsoft.Framework.OptionsModel;
 using Newtonsoft.Json;
 using Recipes.Domain.Aggregates;
-using Recipes.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Recipes.Domain.Repositories
+namespace Recipes.Domain.Common
 {
     public interface IEventStore<TAggregate> where TAggregate : Aggregate
     {
@@ -20,13 +19,13 @@ namespace Recipes.Domain.Repositories
         //private readonly IEventPublisher _publisher;
 
         //public EventStoreRepository(IOptions<EventStoreSettings> settings, IEventPublisher publisher)
-        public RecipeEventStore(IOptions<EventStoreSettings> esSettings)
+        public RecipeEventStore(IOptions<EventStoreSettings> settings)
         {
-            if (esSettings == null) throw new ArgumentNullException(nameof(esSettings));
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
             //if (publisher == null) throw new ArgumentNullException("publisher");
             //_publisher = publisher;            
 
-            _esConnection = EventStoreConnectionFactory.GetConnection(esSettings.Options);
+            _esConnection = EventStoreConnectionFactory.GetConnection(settings.Options);
             _esConnection.ConnectAsync().Wait();
         }
 
@@ -46,7 +45,7 @@ namespace Recipes.Domain.Repositories
                 eventData.Add(data);
             }
 
-            _esConnection.AppendToStreamAsync(streamName, ExpectedVersion.Any, eventData).Wait();
+            _esConnection.AppendToStreamAsync(streamName, ExpectedVersion.Any, eventData);
             //_publisher.Publish(@event);
             recipe.MarkChangesCommitted();
         }

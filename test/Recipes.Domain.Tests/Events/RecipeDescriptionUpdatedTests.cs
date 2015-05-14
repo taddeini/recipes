@@ -8,8 +8,7 @@ namespace Recipes.Domain.Tests.Events
     {
         [Fact]
         public void CreatingRecipeTitleUpdatedEvent_WithInvalidValues_ThrowsAnException()
-        {            
-            Assert.Throws(typeof(ArgumentNullException), () => new RecipeTitleUpdated(Guid.NewGuid(),string.Empty));
+        {
             Assert.Throws(typeof(ArgumentNullException), () => new RecipeTitleUpdated(Guid.Empty, "foo"));
         }
 
@@ -25,7 +24,7 @@ namespace Recipes.Domain.Tests.Events
 
             // Assert            
             Assert.Equal(id, @event.Id);
-            Assert.Equal(title, @event.Title);            
+            Assert.Equal(title, @event.Title);
         }
     }
 }

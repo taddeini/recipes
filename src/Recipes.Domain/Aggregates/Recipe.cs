@@ -5,37 +5,43 @@ namespace Recipes.Domain.Aggregates
 {
     public class Recipe : Aggregate
     {
-        public Recipe(Guid id, string title, string description)
+        public Recipe(Guid id, string title, string description) : base()
         {
+            // Id and Title are required
             // TODO: Move to factory method
             if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException(nameof(title));
-            if (string.IsNullOrEmpty(description)) throw new ArgumentNullException(nameof(description));
+            if (description == null) throw new ArgumentNullException(nameof(description));
 
             Id = id;
             Title = title;
             Description = description;
 
-            Apply(new RecipeAdded(id, title, description));
+            ApplyEvent(new RecipeAdded(id, title, description));
         }
-
+        
         public string Title { get; private set; }
 
         public string Description { get; private set; }
 
         public void Update(string title, string description)
         {
-            if (!string.IsNullOrEmpty(title) && (title != Title))
+            if (title != Title)
             {
                 Title = title;
-                Apply(new RecipeTitleUpdated(Id, title));
+                ApplyEvent(new RecipeTitleUpdated(Id, title));
             }
 
-            if (!string.IsNullOrEmpty(description) && (description != Description))
+            if (description != Description)
             {
                 Description = description;
-                Apply(new RecipeDescriptionUpdated(Id, description));
+                ApplyEvent(new RecipeDescriptionUpdated(Id, description));
             }
+        }
+
+        public void Delete()
+        {
+            ApplyEvent(new RecipeDeleted(Id));
         }
     }
 }

@@ -12,12 +12,12 @@
   },
   "frameworks": {
     "dnx451": { }
-  }, 
+  },
   "exclude": [
     "wwwroot",
     "node_modules",
     "bower_components"
-  ],
+  ],  
   "publishExclude": [
     "node_modules",
     "bower_components",

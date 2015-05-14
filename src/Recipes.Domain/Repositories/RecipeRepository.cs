@@ -1,5 +1,7 @@
 ﻿using Recipes.Domain.Aggregates;
+using Recipes.Domain.Common;
 using System;
+using System.Threading.Tasks;
 
 namespace Recipes.Domain.Repositories
 {
@@ -14,7 +16,7 @@ namespace Recipes.Domain.Repositories
             _recipeMongoDB = recipeMongoDB;
         }
 
-        public Recipe Get(Guid id) => _recipeMongoDB.Get(id);
+        public Task<Recipe> Get(Guid id) => _recipeMongoDB.Get(id);
 
         public void Save(Recipe recipe)
         {

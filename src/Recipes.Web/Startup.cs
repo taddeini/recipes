@@ -5,6 +5,7 @@ using Microsoft.Framework.DependencyInjection;
 using Recipes.Domain.Aggregates;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Common;
+using Recipes.Domain.Queries;
 using Recipes.Domain.Repositories;
 
 namespace Recipes
@@ -35,6 +36,7 @@ namespace Recipes
                 // Register dependencies
                 .AddTransient<IRecipeCommandHandler, RecipeCommandHandler>()
                 .AddSingleton<IEventStore<Recipe>, RecipeEventStore>()
+                .AddSingleton<IQueryProvider<Recipe>, RecipeQueryProvider>()
                 .AddSingleton<IMongoDB<Recipe>, RecipeMongoDB>()
                 .AddSingleton<IRepository<Recipe>, RecipeRepository>();          
         }

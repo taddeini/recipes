@@ -6,12 +6,11 @@ using System.Linq;
 namespace Recipes.Domain.Aggregates
 {
     public abstract class Aggregate
-	{
+    {
         private List<Event> _pendingChanges;
 
         public Aggregate()
         {
-            _pendingChanges = new List<Event>();
         }
 
         public Guid Id { get; protected set; }
@@ -20,12 +19,22 @@ namespace Recipes.Domain.Aggregates
 
         public void MarkChangesCommitted()
         {
+            if (_pendingChanges == null)
+            {
+                _pendingChanges = new List<Event>();
+            }
+
             _pendingChanges.Clear();
         }
-        
-        protected void Apply(Event @event)
+
+        protected void ApplyEvent(Event @event)
         {
+            if (_pendingChanges == null)
+            {
+                _pendingChanges = new List<Event>();
+            }
+
             _pendingChanges.Add(@event);
-        }        
+        }
     }
 }

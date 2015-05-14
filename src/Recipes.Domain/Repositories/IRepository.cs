@@ -1,5 +1,6 @@
 ﻿using Recipes.Domain.Aggregates;
 using System;
+using System.Threading.Tasks;
 
 namespace Recipes.Domain.Repositories
 {
@@ -7,6 +8,6 @@ namespace Recipes.Domain.Repositories
     {
         void Save(TAggregate aggregate);
 
-        TAggregate Get(Guid id);
+        Task<TAggregate> Get(Guid id);
     }
 }

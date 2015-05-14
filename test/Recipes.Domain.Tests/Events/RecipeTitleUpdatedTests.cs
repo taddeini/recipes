@@ -8,8 +8,7 @@ namespace Recipes.Domain.Tests.Events
     {
         [Fact]
         public void CreatingRecipeDescriptionUpdatedEvent_WithInvalidValues_ThrowsAnException()
-        {            
-            Assert.Throws(typeof(ArgumentNullException), () => new RecipeDescriptionUpdated(Guid.NewGuid(), string.Empty));
+        {                        
             Assert.Throws(typeof(ArgumentNullException), () => new RecipeDescriptionUpdated(Guid.Empty, "foo"));
         }
 

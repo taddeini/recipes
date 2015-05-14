@@ -4,15 +4,14 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace Recipes.Domain.Tests
-{        
+namespace Recipes.Domain.Aggregates.Tests
+{
     public class RecipeTests
     {
         [Fact]
         public void CreatingARecipe_WithInvalidValues_ThrowsAnException()
         {
             Assert.Throws(typeof(ArgumentNullException), () => new Recipe(Guid.Empty, "foo", "bar"));
-            Assert.Throws(typeof(ArgumentNullException), () => new Recipe(Guid.NewGuid(), "foo", string.Empty));
             Assert.Throws(typeof(ArgumentNullException), () => new Recipe(Guid.NewGuid(), string.Empty, "bar"));
         }
 
@@ -35,7 +34,7 @@ namespace Recipes.Domain.Tests
 
             var addedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeAdded;
             Assert.NotNull(addedEvent);
-            Assert.IsType(typeof(RecipeAdded), addedEvent);            
+            Assert.IsType(typeof(RecipeAdded), addedEvent);
             Assert.Equal(title, addedEvent.Title);
             Assert.Equal(description, addedEvent.Description);
         }
@@ -49,7 +48,7 @@ namespace Recipes.Domain.Tests
             recipe.MarkChangesCommitted();
 
             // Act
-            recipe.Update(newTitle, string.Empty);
+            recipe.Update(newTitle, "bar");
 
             // Assert - verify title update and event creation
             Assert.Equal(newTitle, recipe.Title);
@@ -70,7 +69,7 @@ namespace Recipes.Domain.Tests
             recipe.MarkChangesCommitted();
 
             // Act
-            recipe.Update(string.Empty, newDesc);
+            recipe.Update("foo", newDesc);
 
             // Assert - verify description update and event creation
             Assert.Equal(newDesc, recipe.Description);
@@ -93,7 +92,27 @@ namespace Recipes.Domain.Tests
             recipe.Update("foo", "bar");
 
             // Assert - no update event should occur
-            Assert.Equal(0, recipe.PendingChanges.Count());            
+            Assert.Equal(0, recipe.PendingChanges.Count());
+        }
+
+        [Fact]
+        public void DeletingARecipe_AppliesARecipeDeletedEvent()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var recipe = new Recipe(id, "foo", "bar");
+            recipe.MarkChangesCommitted();
+
+            // Act
+            recipe.Delete();
+
+            // Assert
+            Assert.Equal(1, recipe.PendingChanges.Count());
+
+            var recipeDeletedEvents = recipe.PendingChanges.FirstOrDefault() as RecipeDeleted;
+            Assert.NotNull(recipeDeletedEvents);
+            Assert.IsType(typeof(RecipeDeleted), recipeDeletedEvents);
+            Assert.Equal(id, recipeDeletedEvents.Id);
         }
     }
 }

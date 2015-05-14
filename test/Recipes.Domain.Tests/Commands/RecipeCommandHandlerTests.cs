@@ -3,6 +3,7 @@ using Recipes.Domain.Aggregates;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Repositories;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Recipes.Domain.Tests.Commands
@@ -45,8 +46,50 @@ namespace Recipes.Domain.Tests.Commands
         [Fact]
         public void HandleUpdateRecipeCommand_ForInvalidRecipe_Bails()
         {
-            _mockRecipeRepository.Get(Arg.Any<Guid>()).Returns(rec => null);
+            // Arrange
+            _mockRecipeRepository
+                .Get(Arg.Any<Guid>())
+                .Returns(rec => Task.FromResult<Recipe>(null));
+
+            // Act
             handler.Handle(new UpdateRecipeCommand(Guid.NewGuid(), "foo", "bar"));
+
+            // Assert
+            _mockRecipeRepository.DidNotReceive().Save(Arg.Any<Recipe>());
+        }
+
+        
+        [Fact]
+        public void HandleDeleteRecipeCommand_WithBasicCommandValues_DeletesARecipe()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var recipe = new Recipe(id, "foo", "bar");            
+            var deleteCommand = new DeleteRecipeCommand(id);
+
+            _mockRecipeRepository.Get(id).Returns(Task.FromResult(recipe));
+
+            // Act
+            handler.Handle(deleteCommand);
+
+            // Assert
+            _mockRecipeRepository
+                .Received(1)
+                .Save(Arg.Is<Recipe>(rec => (rec.Id == id)));
+        }
+
+        [Fact]
+        public void HandleDeleteRecipeCommand_ForInvalidRecipe_Bails()
+        {
+            // Arrange
+            _mockRecipeRepository
+                .Get(Arg.Any<Guid>())
+                .Returns(rec => Task.FromResult<Recipe>(null));
+
+            // Act
+            handler.Handle(new DeleteRecipeCommand(Guid.NewGuid()));
+
+            // Assert
             _mockRecipeRepository.DidNotReceive().Save(Arg.Any<Recipe>());
         }
 
@@ -61,7 +104,7 @@ namespace Recipes.Domain.Tests.Commands
             var newDesc = "bin";
             var updateCommand = new UpdateRecipeCommand(id, newTitle, newDesc);
 
-            _mockRecipeRepository.Get(id).Returns(recipe);
+            _mockRecipeRepository.Get(id).Returns(Task.FromResult(recipe));
 
             // Act
             handler.Handle(updateCommand);

@@ -1,0 +1,11 @@
+﻿{
+  "eventStore": {
+    "hostName": "dev.recipes.com",
+    "port": 1113
+  },
+  "mongoDb": {
+    "hostName": "dev.recipes.com",
+    "port": 27017,
+    "databaseName":  "recipes"
+  }
+}

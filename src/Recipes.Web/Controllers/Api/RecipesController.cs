@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Recipes.Domain.Aggregates;
 using Recipes.Domain.Commands;
+using Recipes.Domain.Queries;
 using System;
-using System.Net;
 
 namespace Recipes.Controllers
 {
@@ -9,24 +10,27 @@ namespace Recipes.Controllers
     public class RecipesController : Controller
     {
         private readonly IRecipeCommandHandler _recipeCommandHandler;
+        private readonly IQueryProvider<Recipe> _recipeQueryProvider;
 
-        public RecipesController(IRecipeCommandHandler recipeCommandHandler)
+        public RecipesController(IRecipeCommandHandler recipeCommandHandler, IQueryProvider<Recipe> recipeQueryProvider)
         {
             _recipeCommandHandler = recipeCommandHandler;
+            _recipeQueryProvider = recipeQueryProvider;
         }
 
-        //// GET: api/values
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // GET: api/values
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var recipes = _recipeQueryProvider.GetAll();
+            return new ObjectResult(recipes);
+        }
 
         // POST api/v1/recipes/{id}
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
-            return new ObjectResult("value");
+            return new HttpNotFoundResult();            
         }
 
         // POST api/v1/recipes
@@ -34,12 +38,23 @@ namespace Recipes.Controllers
         public IActionResult Post()
         {
             var recipeId = Guid.NewGuid();
-			var addRecipeCommand = new AddRecipeCommand(recipeId, "Recipe Title 1", "Recipe Description 1");
-
+            var addRecipeCommand = new AddRecipeCommand(recipeId, "Recipe Title 1", "Recipe Description 1");
             _recipeCommandHandler.Handle(addRecipeCommand);
-            _recipeCommandHandler.Handle(new UpdateRecipeCommand(recipeId, "Recipe Title 2", "Recipe Description 2"));
 
-            return new HttpStatusCodeResult((int)HttpStatusCode.Created);
+            //System.Threading.Thread.Sleep(3000);
+            //_recipeCommandHandler.Handle(new UpdateRecipeCommand(recipeId, "Recipe Title 1", "Recipe Description 2"));
+
+            //System.Threading.Thread.Sleep(3000);
+            //_recipeCommandHandler.Handle(new UpdateRecipeCommand(recipeId, "Recipe Title 2", "Recipe Description 2"));
+
+            //System.Threading.Thread.Sleep(3000);
+            //_recipeCommandHandler.Handle(new UpdateRecipeCommand(recipeId, "Recipe Title 2", "Recipe Description 3"));
+
+            //System.Threading.Thread.Sleep(3000);
+            //_recipeCommandHandler.Handle(new DeleteRecipeCommand(recipeId));
+
+            //return new HttpStatusCodeResult((int)HttpStatusCode.Created);
+            return Get();
         }
 
         //// PUT api/values/5
