@@ -10,12 +10,12 @@ namespace Recipes.Domain.Tests.Commands
 {
     public class RecipeCommandHandlerTests
     {
-        IRepository<Recipe> _mockRecipeRepository;
+        IRepository<RecipeAggregate> _mockRecipeRepository;
         RecipeCommandHandler handler;
 
         public RecipeCommandHandlerTests()
         {
-            _mockRecipeRepository = Substitute.For<IRepository<Recipe>>();
+            _mockRecipeRepository = Substitute.For<IRepository<RecipeAggregate>>();
             handler = new RecipeCommandHandler(_mockRecipeRepository);
         }
 
@@ -40,7 +40,7 @@ namespace Recipes.Domain.Tests.Commands
             // Assert
             _mockRecipeRepository
                 .Received(1)
-                .Save(Arg.Is<Recipe>(rec => (rec.Id == id && rec.Title == title && rec.Description == desc)));
+                .Save(Arg.Is<RecipeAggregate>(rec => (rec.Id == id)));
         }
 
         [Fact]
@@ -49,22 +49,21 @@ namespace Recipes.Domain.Tests.Commands
             // Arrange
             _mockRecipeRepository
                 .Get(Arg.Any<Guid>())
-                .Returns(rec => Task.FromResult<Recipe>(null));
+                .Returns(rec => Task.FromResult<RecipeAggregate>(null));
 
             // Act
             handler.Handle(new UpdateRecipeCommand(Guid.NewGuid(), "foo", "bar"));
 
             // Assert
-            _mockRecipeRepository.DidNotReceive().Save(Arg.Any<Recipe>());
+            _mockRecipeRepository.DidNotReceive().Save(Arg.Any<RecipeAggregate>());
         }
-
         
         [Fact]
         public void HandleDeleteRecipeCommand_WithBasicCommandValues_DeletesARecipe()
         {
             // Arrange
             var id = Guid.NewGuid();
-            var recipe = new Recipe(id, "foo", "bar");            
+            var recipe = RecipeAggregate.Create(id, "foo", "bar");            
             var deleteCommand = new DeleteRecipeCommand(id);
 
             _mockRecipeRepository.Get(id).Returns(Task.FromResult(recipe));
@@ -75,7 +74,7 @@ namespace Recipes.Domain.Tests.Commands
             // Assert
             _mockRecipeRepository
                 .Received(1)
-                .Save(Arg.Is<Recipe>(rec => (rec.Id == id)));
+                .Save(Arg.Is<RecipeAggregate>(rec => (rec.Id == id)));
         }
 
         [Fact]
@@ -84,13 +83,13 @@ namespace Recipes.Domain.Tests.Commands
             // Arrange
             _mockRecipeRepository
                 .Get(Arg.Any<Guid>())
-                .Returns(rec => Task.FromResult<Recipe>(null));
+                .Returns(rec => Task.FromResult<RecipeAggregate>(null));
 
             // Act
             handler.Handle(new DeleteRecipeCommand(Guid.NewGuid()));
 
             // Assert
-            _mockRecipeRepository.DidNotReceive().Save(Arg.Any<Recipe>());
+            _mockRecipeRepository.DidNotReceive().Save(Arg.Any<RecipeAggregate>());
         }
 
         [Fact]
@@ -98,7 +97,7 @@ namespace Recipes.Domain.Tests.Commands
         {
             // Arrange
             var id = Guid.NewGuid();
-            var recipe = new Recipe(id, "foo", "bar");
+            var recipe = RecipeAggregate.Create(id, "foo", "bar");
 
             var newTitle = "fizz";
             var newDesc = "bin";
@@ -112,7 +111,7 @@ namespace Recipes.Domain.Tests.Commands
             // Assert
             _mockRecipeRepository
                 .Received(1)
-                .Save(Arg.Is<Recipe>(rec => (rec.Id == id && rec.Title == newTitle && rec.Description == newDesc)));
+                .Save(Arg.Is<RecipeAggregate>(rec => (rec.Id == id)));
         }
     }
 }

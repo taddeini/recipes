@@ -1,35 +1,39 @@
 ﻿using EventStore.ClientAPI;
-using Microsoft.Framework.OptionsModel;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Recipes.Domain.Aggregates;
 using Recipes.Domain.Common;
 using Recipes.Domain.Events;
+using Recipes.Domain.Queries;
 using System;
 using System.Text;
 
 namespace Recipes.Projections.Projectors
 {
     public class MongoDBProjector : IProjector
-    {        
-        private readonly IMongoCollection<Recipe> _recipes;
+    {
+        private readonly IMongoCollection<RecipeQuery> _recipes;
 
-        public MongoDBProjector(MongoDBSettings settings)
-        {                        
-            _recipes = MongoDBFactory
-                .GetDatabase(settings)
-                .GetCollection<Recipe>("recipe");
+        public MongoDBProjector(IMongoDatabase database)
+        {
+            _recipes = database.GetCollection<RecipeQuery>("recipe");
         }
 
         public void HandleEvent(ResolvedEvent resolvedEvent, EventStoreSubscription subscription)
         {
             var recordedEvent = resolvedEvent.Event;
             var eventData = Encoding.UTF8.GetString(recordedEvent.Data);
+
             switch (recordedEvent.EventType)
             {
                 case nameof(RecipeAdded):
                     var recipeAdded = JsonConvert.DeserializeObject<RecipeAdded>(eventData);
-                    var recipe = new Recipe(recipeAdded.Id, recipeAdded.Title, recipeAdded.Description);
+                    var recipe = new RecipeQuery
+                    {
+                        Id = recipeAdded.Id,
+                        Title = recipeAdded.Title,
+                        Description = recipeAdded.Description
+                    };
                     _recipes.InsertOneAsync(recipe);
 
                     ConsoleIt(recordedEvent);
@@ -39,7 +43,7 @@ namespace Recipes.Projections.Projectors
                     var descUpdated = JsonConvert.DeserializeObject<RecipeDescriptionUpdated>(eventData);
 
                     _recipes.UpdateOneAsync(rec => (rec.Id == descUpdated.Id),
-                        Builders<Recipe>.Update.Set(rec => rec.Description, descUpdated.Description));
+                        Builders<RecipeQuery>.Update.Set(rec => rec.Description, descUpdated.Description));
 
                     ConsoleIt(recordedEvent);
                     break;
@@ -48,7 +52,7 @@ namespace Recipes.Projections.Projectors
                     var titleUpdated = JsonConvert.DeserializeObject<RecipeTitleUpdated>(eventData);
 
                     _recipes.UpdateOneAsync(rec => (rec.Id == titleUpdated.Id),
-                        Builders<Recipe>.Update.Set(rec => rec.Title, titleUpdated.Title));
+                        Builders<RecipeQuery>.Update.Set(rec => rec.Title, titleUpdated.Title));
 
                     ConsoleIt(recordedEvent);
                     break;
@@ -62,7 +66,7 @@ namespace Recipes.Projections.Projectors
                     break;
             }
         }
-        
+
         private void ConsoleIt(RecordedEvent recordedEvent)
         {
             Console.WriteLine($"MongoDBProjector Handling: {recordedEvent.EventType}");

@@ -8,15 +8,11 @@ namespace Recipes.Domain.Aggregates
     public abstract class Aggregate
     {
         private List<Event> _pendingChanges;
-
-        public Aggregate()
-        {
-        }
-
+        
         public Guid Id { get; protected set; }
 
-        public IEnumerable<Event> PendingChanges => _pendingChanges;
-
+        public IEnumerable<Event> PendingChanges => _pendingChanges;        
+        
         public void MarkChangesCommitted()
         {
             if (_pendingChanges == null)
@@ -27,7 +23,7 @@ namespace Recipes.Domain.Aggregates
             _pendingChanges.Clear();
         }
 
-        protected void ApplyEvent(Event @event)
+        protected virtual void ApplyEvent(Event @event)
         {
             if (_pendingChanges == null)
             {
@@ -35,6 +31,6 @@ namespace Recipes.Domain.Aggregates
             }
 
             _pendingChanges.Add(@event);
-        }
+        }        
     }
 }

@@ -4,34 +4,32 @@ using Recipes.Domain.Commands;
 using Recipes.Domain.Queries;
 using System;
 
-namespace Recipes.Controllers
+namespace Recipes.Web.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     public class RecipesController : Controller
     {
         private readonly IRecipeCommandHandler _recipeCommandHandler;
-        private readonly IQueryProvider<Recipe> _recipeQueryProvider;
+        private readonly IQueryProvider<Domain.Aggregates.RecipeAggregate> _recipeQueryProvider;
 
-        public RecipesController(IRecipeCommandHandler recipeCommandHandler, IQueryProvider<Recipe> recipeQueryProvider)
+        public RecipesController(IRecipeCommandHandler recipeCommandHandler, IQueryProvider<Domain.Aggregates.RecipeAggregate> recipeQueryProvider)
         {
             _recipeCommandHandler = recipeCommandHandler;
             _recipeQueryProvider = recipeQueryProvider;
         }
-
-        // GET: api/values
+        
         [HttpGet]
         public IActionResult Get()
         {
             var recipes = _recipeQueryProvider.GetAll();
             return new ObjectResult(recipes);
         }
-
-        // POST api/v1/recipes/{id}
-        [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
-        {
-            return new HttpNotFoundResult();            
-        }
+        
+        //[HttpGet("{id}")]
+        //public IActionResult Get(Guid id)
+        //{
+        //    return new HttpNotFoundResult();            
+        //}
 
         // POST api/v1/recipes
         [HttpPost]

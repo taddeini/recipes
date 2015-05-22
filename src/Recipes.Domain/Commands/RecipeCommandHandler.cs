@@ -13,9 +13,9 @@ namespace Recipes.Domain.Commands
 
     public class RecipeCommandHandler : IRecipeCommandHandler
     {
-        private readonly IRepository<Recipe> _recipeRepository;
+        private readonly IRepository<RecipeAggregate> _recipeRepository;
 
-        public RecipeCommandHandler(IRepository<Recipe> recipeRepository)
+        public RecipeCommandHandler(IRepository<RecipeAggregate> recipeRepository)
         {
             if (recipeRepository == null) throw new ArgumentNullException(nameof(recipeRepository));
             _recipeRepository = recipeRepository;
@@ -23,18 +23,13 @@ namespace Recipes.Domain.Commands
         
         public void Handle(AddRecipeCommand command)
         {            
-            var recipe = new Recipe(command.Id, command.Title, command.Description);
+            var recipe = RecipeAggregate.Create(command.Id, command.Title, command.Description);
             _recipeRepository.Save(recipe);            
         }
 
         public void Handle(UpdateRecipeCommand command)
         {            
-            var recipe = _recipeRepository.Get(command.Id).Result;
-            if (recipe == null)
-            {
-                return;
-            }
-
+            var recipe = _recipeRepository.Get(command.Id).Result;        
             recipe.Update(command.Title, command.Description);
             _recipeRepository.Save(recipe);
         }
@@ -42,11 +37,6 @@ namespace Recipes.Domain.Commands
         public void Handle(DeleteRecipeCommand command)
         {
             var recipe = _recipeRepository.Get(command.Id).Result;
-            if (recipe == null)
-            {
-                return;
-            }
-
             recipe.Delete();
             _recipeRepository.Save(recipe);
         }

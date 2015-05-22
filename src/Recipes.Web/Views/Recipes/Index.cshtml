@@ -1,0 +1,15 @@
+﻿@{Layout = "_Layout";}
+@using Recipes.Domain.Aggregates
+@using Recipes.Web
+@{
+    <h1>Recipes</h1>
+    <ul>
+        @foreach (Recipe recipe in Model)
+        {
+            <li>
+                <h2><a href="~/recipes/@RecipeUtils.ConvertTitleToUrl(recipe.Title)">@recipe.Title</a></h2>
+                <p>@recipe.Description</p>
+            </li>            
+        }
+    </ul>
+}

@@ -14,8 +14,8 @@ namespace Recipes.Projections.Host
 
         public void Main(string[] args)
         {
-            var settings = new ProjectorSettings();
-            var connection = EventStoreConnectionFactory.GetConnection(settings.EventStoreSettings);
+            var config = new Configuration().AddJsonFile("config.json");            
+            var connection = EventStoreConnectionFactory.GetConnection(config);
 
             // Subscribe to connection notifications
             connection.AuthenticationFailed += (s, a) => Console.WriteLine($"ES authentication failed: {a.Reason}");
@@ -32,14 +32,15 @@ namespace Recipes.Projections.Host
                 (sub, reason, ex) => HandleEventDropped(sub, reason, ex),
                 new UserCredentials("admin", "changeit")).Wait();
 
-            RegisterProjectors(settings);
+            RegisterProjectors(config);
             
             Console.Read();
         }
 
-        private void RegisterProjectors(ProjectorSettings settings)
-        {            
-            _projectors.Add(new MongoDBProjector(settings.MongoDBSettings));
+        private void RegisterProjectors(IConfiguration config)
+        {
+            var mongoDb = MongoDBFactory.GetDatabase(config);
+            _projectors.Add(new MongoDBProjector(mongoDb));
         }
 
         private void HandleEvent(ResolvedEvent @event, EventStoreSubscription subscription)

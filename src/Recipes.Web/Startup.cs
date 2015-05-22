@@ -25,20 +25,17 @@ namespace Recipes
         
         // Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
             services
-                .AddMvc()    
-
-                // Wire up configuration settings
-                .Configure<EventStoreSettings>(Configuration.GetSubKey("eventStore"))
-                .Configure<MongoDBSettings>(Configuration.GetSubKey("mongoDb"))
+                .AddMvc()
 
                 // Register dependencies
-                .AddTransient<IRecipeCommandHandler, RecipeCommandHandler>()
-                .AddSingleton<IEventStore<Recipe>, RecipeEventStore>()
-                .AddSingleton<IQueryProvider<Recipe>, RecipeQueryProvider>()
-                .AddSingleton<IMongoDB<Recipe>, RecipeMongoDB>()
-                .AddSingleton<IRepository<Recipe>, RecipeRepository>();          
+                .AddSingleton(con => EventStoreConnectionFactory.GetConnection(Configuration))
+                .AddSingleton(db => MongoDBFactory.GetDatabase(Configuration))                
+
+                .AddTransient<IRecipeCommandHandler, RecipeCommandHandler>()                                                
+                .AddSingleton<IQueryProvider<RecipeQuery>, MongoDBRecipeQueryProvider>()                
+                .AddSingleton<IRepository<RecipeAggregate>, EventStoreRecipeRepository>();          
         }
 
         // Configure is called after ConfigureServices is called.

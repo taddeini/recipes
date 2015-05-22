@@ -1,15 +1,17 @@
 ﻿using Recipes.Domain.Aggregates;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Recipes.Domain.Queries
 {
-    public interface IQueryProvider<TAggregate> where TAggregate : Aggregate
+    public interface IQueryProvider<TQuery>
     {
-        IEnumerable<TAggregate> Find(Func<Recipe, bool> predicate);
+        Task<IEnumerable<TQuery>> Find(Expression<Func<TQuery, bool>> predicate);
 
-        IEnumerable<TAggregate> GetAll();
+        Task<IEnumerable<TQuery>> GetAll();
 
-        TAggregate Get(Guid id);        
+        Task<TQuery> Get(Guid id);        
     }
 }

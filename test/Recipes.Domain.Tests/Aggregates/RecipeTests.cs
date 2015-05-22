@@ -1,5 +1,4 @@
-﻿using Recipes.Domain.Aggregates;
-using Recipes.Domain.Events;
+﻿using Recipes.Domain.Events;
 using System;
 using System.Linq;
 using Xunit;
@@ -11,8 +10,8 @@ namespace Recipes.Domain.Aggregates.Tests
         [Fact]
         public void CreatingARecipe_WithInvalidValues_ThrowsAnException()
         {
-            Assert.Throws(typeof(ArgumentNullException), () => new Recipe(Guid.Empty, "foo", "bar"));
-            Assert.Throws(typeof(ArgumentNullException), () => new Recipe(Guid.NewGuid(), string.Empty, "bar"));
+            Assert.Throws(typeof(ArgumentNullException), () => RecipeAggregate.Create(Guid.Empty, "foo", "bar"));
+            Assert.Throws(typeof(ArgumentNullException), () => RecipeAggregate.Create(Guid.NewGuid(), string.Empty, "bar"));
         }
 
         [Fact]
@@ -24,12 +23,9 @@ namespace Recipes.Domain.Aggregates.Tests
             var description = "bar";
 
             // Act
-            var recipe = new Recipe(id, title, description);
+            var recipe = RecipeAggregate.Create(id, title, description);
 
-            // Assert - verify aggregate and event creation
-            Assert.Equal(id, recipe.Id);
-            Assert.Equal(title, recipe.Title);
-            Assert.Equal(description, recipe.Description);
+            // Assert - verify event creation
             Assert.Equal(1, recipe.PendingChanges.Count());
 
             var addedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeAdded;
@@ -44,14 +40,13 @@ namespace Recipes.Domain.Aggregates.Tests
         {
             // Arrange
             var newTitle = "fizz";
-            var recipe = new Recipe(Guid.NewGuid(), "foo", "bar");
+            var recipe = RecipeAggregate.Create(Guid.NewGuid(), "foo", "bar");
             recipe.MarkChangesCommitted();
 
             // Act
             recipe.Update(newTitle, "bar");
 
-            // Assert - verify title update and event creation
-            Assert.Equal(newTitle, recipe.Title);
+            // Assert - verify title update and event creation            
             Assert.Equal(1, recipe.PendingChanges.Count());
 
             var titleUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeTitleUpdated;
@@ -65,14 +60,13 @@ namespace Recipes.Domain.Aggregates.Tests
         {
             // Arrange
             var newDesc = "bin";
-            var recipe = new Recipe(Guid.NewGuid(), "foo", "bar");
+            var recipe = RecipeAggregate.Create(Guid.NewGuid(), "foo", "bar");
             recipe.MarkChangesCommitted();
 
             // Act
             recipe.Update("foo", newDesc);
 
-            // Assert - verify description update and event creation
-            Assert.Equal(newDesc, recipe.Description);
+            // Assert - verify description update and event creation            
             Assert.Equal(1, recipe.PendingChanges.Count());
 
             var descUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeDescriptionUpdated;
@@ -85,7 +79,7 @@ namespace Recipes.Domain.Aggregates.Tests
         public void UpdatingARecipe_WithTheSameTitleAndDescription_DoesNotUpdateTheRecipeOrCreateEvents()
         {
             // Arrange            
-            var recipe = new Recipe(Guid.NewGuid(), "foo", "bar");
+            var recipe = RecipeAggregate.Create(Guid.NewGuid(), "foo", "bar");
             recipe.MarkChangesCommitted();
 
             // Act - call udate with the same values that are already assigned
@@ -100,7 +94,7 @@ namespace Recipes.Domain.Aggregates.Tests
         {
             // Arrange
             var id = Guid.NewGuid();
-            var recipe = new Recipe(id, "foo", "bar");
+            var recipe = RecipeAggregate.Create(id, "foo", "bar");
             recipe.MarkChangesCommitted();
 
             // Act
