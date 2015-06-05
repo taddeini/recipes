@@ -9,6 +9,7 @@
     "Microsoft.AspNet.Server.WebListener": "1.0-*",
     "Microsoft.AspNet.StaticFiles": "1.0-*",
     "Microsoft.Framework.ConfigurationModel.Json": "1.0-*",
+    "Serilog.Framework.Logging": "1.0-*",
     "Recipes.Domain": "1.0-*"
   },
   "frameworks": {
@@ -18,7 +19,7 @@
     "wwwroot",
     "node_modules",
     "bower_components"
-  ],  
+  ],
   "publishExclude": [
     "node_modules",
     "bower_components",

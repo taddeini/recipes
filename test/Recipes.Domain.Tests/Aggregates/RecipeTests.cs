@@ -25,14 +25,12 @@ namespace Recipes.Domain.Aggregates.Tests
             // Act
             var recipe = RecipeAggregate.Create(id, title, description);
 
-            // Assert - verify event creation
+            // Assert
             Assert.Equal(1, recipe.PendingChanges.Count());
-
+                        
             var addedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeAdded;
             Assert.NotNull(addedEvent);
-            Assert.IsType(typeof(RecipeAdded), addedEvent);
-            Assert.Equal(title, addedEvent.Title);
-            Assert.Equal(description, addedEvent.Description);
+            Assert.IsType(typeof(RecipeAdded), addedEvent);            
         }
 
         [Fact]
@@ -46,13 +44,12 @@ namespace Recipes.Domain.Aggregates.Tests
             // Act
             recipe.Update(newTitle, "bar");
 
-            // Assert - verify title update and event creation            
-            Assert.Equal(1, recipe.PendingChanges.Count());
+            // Assert
+            Assert.Equal(1, recipe.PendingChanges.Count());                      
 
             var titleUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeTitleUpdated;
             Assert.NotNull(titleUpdatedEvent);
             Assert.IsType(typeof(RecipeTitleUpdated), titleUpdatedEvent);
-            Assert.Equal(newTitle, titleUpdatedEvent.Title);
         }
 
         [Fact]
@@ -66,13 +63,12 @@ namespace Recipes.Domain.Aggregates.Tests
             // Act
             recipe.Update("foo", newDesc);
 
-            // Assert - verify description update and event creation            
+            // Assert
             Assert.Equal(1, recipe.PendingChanges.Count());
-
+            
             var descUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeDescriptionUpdated;
             Assert.NotNull(descUpdatedEvent);
-            Assert.IsType(typeof(RecipeDescriptionUpdated), descUpdatedEvent);
-            Assert.Equal(newDesc, descUpdatedEvent.Description);
+            Assert.IsType(typeof(RecipeDescriptionUpdated), descUpdatedEvent);            
         }
 
         [Fact]

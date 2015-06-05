@@ -1,28 +1,19 @@
 ﻿using Recipes.Domain.Events;
 using System;
-using System.Collections.Generic;
 
 namespace Recipes.Domain.Aggregates
 {
     public class RecipeAggregate : Aggregate
     {
         private string _title;
-
         private string _description;
 
-        private RecipeAggregate()
+        internal RecipeAggregate()
         {
-        }
-
-        public static RecipeAggregate Load(IEnumerable<Event> history)
-        {
-            var recipe = new RecipeAggregate();
-            foreach (var @event in history)
-            {
-                recipe.ApplyEvent(@event);
-            }            
-            return recipe;
-        }
+            Handles<RecipeAdded>(OnRecipeAdded);
+            Handles<RecipeTitleUpdated>(OnRecipeTitleUpdated);
+            Handles<RecipeDescriptionUpdated>(OnRecipeDescriptionUpdated);
+        }        
 
         public static RecipeAggregate Create(Guid id, string title, string description)
         {
@@ -34,42 +25,36 @@ namespace Recipes.Domain.Aggregates
         public void Update(string title, string description)
         {
             if (title != _title)
-            {                
+            {
                 ApplyEvent(new RecipeTitleUpdated(Id, title));
             }
 
             if (description != _description)
-            {                
+            {
                 ApplyEvent(new RecipeDescriptionUpdated(Id, description));
             }
         }
-        
+
         public void Delete()
         {
             ApplyEvent(new RecipeDeleted(Id));
-        }    
-
-        protected override void ApplyEvent(Event @event)
-        {
-            //TODO: this method is dumb
-            base.ApplyEvent(@event);
-
-            switch (@event.GetType().Name)
-            {
-                case nameof(RecipeAdded):
-                    Id = @event.Id;
-                    _description = ((RecipeAdded)@event).Description;
-                    _title = ((RecipeAdded)@event).Title;
-                    break;
-
-                case nameof(RecipeTitleUpdated):
-                    _title = ((RecipeTitleUpdated)@event).Title;                    
-                    break;
-
-                case nameof(RecipeDescriptionUpdated):
-                    _description = ((RecipeDescriptionUpdated)@event).Description;
-                    break;
-            }
         }
+
+        private void OnRecipeAdded(RecipeAdded added)
+        {
+            Id = added.Id;
+            _description = added.Description;
+            _title = added.Title;
+        }
+
+        private void OnRecipeTitleUpdated(RecipeTitleUpdated titleUpdated)
+        {
+            _title = titleUpdated.Title;
+        }
+
+        private void OnRecipeDescriptionUpdated(RecipeDescriptionUpdated descUpdated)
+        {
+            _description = descUpdated.Description;
+        } 
     }
 }

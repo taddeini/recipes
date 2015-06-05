@@ -6,6 +6,6 @@
   "mongoDb": {
     "hostName": "dev.recipes.com",
     "port": 27017,
-    "databaseName":  "recipes"
-  }
+    "databaseName": "recipes"
+  }  
 }

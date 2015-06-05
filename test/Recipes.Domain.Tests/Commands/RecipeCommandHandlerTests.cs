@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using Recipes.Domain.Aggregates;
 using Recipes.Domain.Commands;
+using Recipes.Domain.Queries;
 using Recipes.Domain.Repositories;
 using System;
 using System.Threading.Tasks;
@@ -11,18 +12,22 @@ namespace Recipes.Domain.Tests.Commands
     public class RecipeCommandHandlerTests
     {
         IRepository<RecipeAggregate> _mockRecipeRepository;
+        IQueryProvider<RecipeQuery> _mockRecipeQueryProvider;
         RecipeCommandHandler handler;
 
         public RecipeCommandHandlerTests()
         {
             _mockRecipeRepository = Substitute.For<IRepository<RecipeAggregate>>();
-            handler = new RecipeCommandHandler(_mockRecipeRepository);
+            _mockRecipeQueryProvider = Substitute.For<IQueryProvider<RecipeQuery>>();
+
+            handler = new RecipeCommandHandler(_mockRecipeRepository, _mockRecipeQueryProvider);
         }
 
         [Fact]
         public void CreatingRecipeCommandHandler_WithInvalidArguments_ThrowsAnException()
         {
-            Assert.Throws(typeof(ArgumentNullException), () => new RecipeCommandHandler(null));
+            Assert.Throws(typeof(ArgumentNullException), () => new RecipeCommandHandler(null, _mockRecipeQueryProvider));
+            Assert.Throws(typeof(ArgumentNullException), () => new RecipeCommandHandler(_mockRecipeRepository, null));
         }
 
         [Fact]
@@ -44,6 +49,12 @@ namespace Recipes.Domain.Tests.Commands
         }
 
         [Fact]
+        public void HandleAddRecipeCommand_WithTitleThatAlreadyExists_ThrowsAnInvalidOperationsException()
+        {
+            Assert.False(true);
+        }
+
+        [Fact]
         public void HandleUpdateRecipeCommand_ForInvalidRecipe_Bails()
         {
             // Arrange
@@ -57,7 +68,12 @@ namespace Recipes.Domain.Tests.Commands
             // Assert
             _mockRecipeRepository.DidNotReceive().Save(Arg.Any<RecipeAggregate>());
         }
-        
+
+        public void HandleUpdateRecipeCommand_WithTitleThatAlreadyExists_DoesNotUpdateTheRecipe()
+        {
+            Assert.False(true);
+        }
+
         [Fact]
         public void HandleDeleteRecipeCommand_WithBasicCommandValues_DeletesARecipe()
         {

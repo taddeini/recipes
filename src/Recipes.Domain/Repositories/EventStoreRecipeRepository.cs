@@ -8,19 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Recipes.Domain.Repositories
-{
-    public class EventStoreRecipeRepository : IRepository<RecipeAggregate>
+{    
+    public class EventStoreRecipeRepository<TAggregate> : IRepository<TAggregate> where TAggregate : Aggregate
     {
         private readonly IEventStoreConnection _connection;
         private readonly static string AGGREGATE_PREFIX = "recipe";
+        private readonly static string QUALIFIED_NAME_FORMAT = "Recipes.Domain.Events.{0}, Recipes.Domain";
 
         public EventStoreRecipeRepository(IEventStoreConnection connection)
         {
             _connection = connection;
             _connection.ConnectAsync().Wait();
         }
-
-        public Task<RecipeAggregate> Get(Guid id)
+        
+        public Task<TAggregate> Get(Guid id)
         {
             var streamName = $"{AGGREGATE_PREFIX}-{id.ToString()}";
             var allEvents = new List<Event>();
@@ -39,32 +40,23 @@ namespace Recipes.Domain.Repositories
             foreach (var streamEvent in streamEvents)
             {
                 var eventData = Encoding.UTF8.GetString(streamEvent.Event.Data);
-                switch (streamEvent.Event.EventType)
+                var eventType = Type.GetType(string.Format(QUALIFIED_NAME_FORMAT, streamEvent.Event.EventType));
+                var eventObject = JsonConvert.DeserializeObject(eventData, eventType) as Event;
+                if (eventObject != null)
                 {
-                    case nameof(RecipeAdded):
-                        allEvents.Add(JsonConvert.DeserializeObject<RecipeAdded>(eventData));
-                        break;
-                    case nameof(RecipeDescriptionUpdated):
-                        allEvents.Add(JsonConvert.DeserializeObject<RecipeDescriptionUpdated>(eventData));
-                        break;
-                    case nameof(RecipeTitleUpdated):
-                        allEvents.Add(JsonConvert.DeserializeObject<RecipeTitleUpdated>(eventData));
-                        break;
-                    case nameof(RecipeDeleted):
-                        allEvents.Add(JsonConvert.DeserializeObject<RecipeDeleted>(eventData));
-                        break;
-                }
+                    allEvents.Add(eventObject);
+                }                                    
             }
 
-            return Task.FromResult(RecipeAggregate.Load(allEvents));
+            return Task.FromResult(Aggregate.LoadFromHistory<TAggregate>(allEvents));
         }
-
-        public void Save(RecipeAggregate recipe)
+        
+        public void Save(TAggregate aggregate)
         {
-            var streamName = $"{AGGREGATE_PREFIX}-{recipe.Id.ToString()}";
+            var streamName = $"{AGGREGATE_PREFIX}-{aggregate.Id.ToString()}";
             var eventData = new List<EventData>();
 
-            foreach (var @event in recipe.PendingChanges)
+            foreach (var @event in aggregate.PendingChanges)
             {
                 var data = new EventData(Guid.NewGuid(),
                     @event.GetType().Name,
@@ -75,7 +67,7 @@ namespace Recipes.Domain.Repositories
             }
 
             _connection.AppendToStreamAsync(streamName, ExpectedVersion.Any, eventData);
-            recipe.MarkChangesCommitted();
-        }
+            aggregate.MarkChangesCommitted();
+        }    
     }
 }

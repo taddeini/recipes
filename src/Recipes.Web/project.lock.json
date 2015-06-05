@@ -9,6 +9,7 @@
       "Microsoft.AspNet.Server.WebListener >= 1.0-*",
       "Microsoft.AspNet.StaticFiles >= 1.0-*",
       "Microsoft.Framework.ConfigurationModel.Json >= 1.0-*",
+      "Serilog.Framework.Logging >= 1.0-*",
       "Recipes.Domain >= 1.0-*"
     ],
     "DNX,Version=v4.5.1": []
@@ -2078,6 +2079,78 @@
         "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.xml",
         "tools/install.ps1"
+      ]
+    },
+    "Serilog/1.5.5": {
+      "serviceable": false,
+      "sha": "38I3EMpY+uEmKkOKVG3Na6uwFJyKx0QqmF8pCu0jDk67nAACVoak71jjMHdtitmbQfzlnOLaxi2ME0G7n/t2pA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net45/Serilog.dll",
+            "lib/net45/Serilog.FullNetFx.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/Serilog.dll",
+            "lib/net45/Serilog.FullNetFx.dll"
+          ]
+        }
+      },
+      "files": [
+        "Serilog.1.5.5.nupkg",
+        "Serilog.1.5.5.nupkg.sha512",
+        "Serilog.nuspec",
+        "lib/net40/Serilog.dll",
+        "lib/net40/Serilog.FullNetFx.dll",
+        "lib/net40/Serilog.FullNetFx.pdb",
+        "lib/net40/Serilog.FullNetFx.XML",
+        "lib/net40/Serilog.pdb",
+        "lib/net40/Serilog.XML",
+        "lib/net45/Serilog.dll",
+        "lib/net45/Serilog.FullNetFx.dll",
+        "lib/net45/Serilog.FullNetFx.pdb",
+        "lib/net45/Serilog.FullNetFx.XML",
+        "lib/net45/Serilog.pdb",
+        "lib/net45/Serilog.XML",
+        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10/Serilog.dll",
+        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10/Serilog.pdb",
+        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10/Serilog.XML"
+      ]
+    },
+    "Serilog.Framework.Logging/1.0.0-beta-2": {
+      "serviceable": false,
+      "sha": "a+Mj/hMJCvr95c4GNwMfiz7XWuaNg5HuHg/yK3db0ROyLjeG+MOUC/tQJv0v/sne3yt1qGXRC8ki5jOZBVXBIA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Framework.Logging.Interfaces": "1.0.0-beta4",
+            "Serilog": "1.5.5"
+          },
+          "frameworkAssemblies": [
+            "System.Runtime",
+            "mscorlib",
+            "System",
+            "System.Core",
+            "Microsoft.CSharp"
+          ],
+          "runtimeAssemblies": [
+            "lib/dnx451/Serilog.Framework.Logging.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnx451/Serilog.Framework.Logging.dll"
+          ]
+        }
+      },
+      "files": [
+        "Serilog.Framework.Logging.1.0.0-beta-2.nupkg",
+        "Serilog.Framework.Logging.1.0.0-beta-2.nupkg.sha512",
+        "Serilog.Framework.Logging.nuspec",
+        "lib/dnx451/Serilog.Framework.Logging.dll",
+        "lib/dnx451/Serilog.Framework.Logging.xml",
+        "lib/dnxcore50/Serilog.Framework.Logging.dll",
+        "lib/dnxcore50/Serilog.Framework.Logging.xml"
       ]
     },
     "System.Collections.Immutable/1.1.33-beta": {

@@ -1,8 +1,6 @@
 ﻿using EventStore.ClientAPI;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-using Recipes.Domain.Aggregates;
-using Recipes.Domain.Common;
 using Recipes.Domain.Events;
 using Recipes.Domain.Queries;
 using System;
