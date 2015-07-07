@@ -1,5 +1,5 @@
 ﻿using EventStore.ClientAPI;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using System.Net;
 
 namespace Recipes.Domain.Common

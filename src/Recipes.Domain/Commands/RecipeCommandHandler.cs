@@ -28,17 +28,17 @@ namespace Recipes.Domain.Commands
 
         public void Handle(AddRecipeCommand command)
         {
-            var existingRecipe = _recipeQueryProvider
+            var duplicateRecipe = _recipeQueryProvider
                 .Find(rec => (rec.Title.ToLower() == command.Title.ToLower()))
                 .Result
                 .FirstOrDefault();
 
-            if (existingRecipe != null)
+            if (duplicateRecipe != null)
             {
                 throw new InvalidOperationException("Recipe with that title already exists");
             }
 
-            var recipe = RecipeAggregate.Create(command.Id, command.Title, command.Description);            
+            var recipe = RecipeAggregate.Create(command.Id, command.Title, command.Description);
             _recipeRepository.Save(recipe);
         }
 
@@ -47,8 +47,17 @@ namespace Recipes.Domain.Commands
             var recipe = _recipeRepository.Get(command.Id).Result;
             if (recipe != null)
             {
-                recipe.Update(command.Title, command.Description);
-                _recipeRepository.Save(recipe);
+                // Verify title is unique before updating
+                var duplicateRecipe = _recipeQueryProvider 
+                    .Find(rec => (rec.Title.ToLower() == command.Title.ToLower()))
+                    .Result
+                    .FirstOrDefault();
+
+                if (duplicateRecipe == null)
+                {
+                    recipe.Update(command.Title, command.Description);
+                    _recipeRepository.Save(recipe);
+                }
             }
         }
 

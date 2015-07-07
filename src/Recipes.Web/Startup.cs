@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Recipes.Domain.Aggregates;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Common;
 using Recipes.Domain.Queries;
-using Recipes.Domain.Repositories;
 using Serilog;
 
 namespace Recipes
@@ -19,10 +17,11 @@ namespace Recipes
         public Startup(IHostingEnvironment env)
         {
             // Setup configuration source
-            Configuration = new Configuration()
+            Configuration = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
                 .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddEnvironmentVariables()
+                .Build();
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Trace()
@@ -36,13 +35,11 @@ namespace Recipes
                 .AddMvc()
 
                 // Register dependencies
-                .AddSingleton(con => EventStoreConnectionFactory.GetConnection(Configuration))
                 .AddSingleton(db => MongoDBFactory.GetDatabase(Configuration))
-                //.AddSingleton(logger => Log.Logger)
+                .AddSingleton(logger => Log.Logger)
 
                 .AddTransient<IRecipeCommandHandler, RecipeCommandHandler>()
-                .AddSingleton<IQueryProvider<RecipeQuery>, MongoDBRecipeQueryProvider>()
-                .AddSingleton<IRepository<RecipeAggregate>, EventStoreRecipeRepository<RecipeAggregate>>();                
+                .AddSingleton<IQueryProvider<RecipeQuery>, MongoDBRecipeQueryProvider>();                
         }
 
         // Configure is called after ConfigureServices is called.

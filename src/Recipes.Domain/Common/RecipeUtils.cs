@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Recipes.Web
+namespace Recipes.Domain
 {
     public class RecipeUtils
     {

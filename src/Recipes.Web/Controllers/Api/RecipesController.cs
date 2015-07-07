@@ -1,44 +1,38 @@
 ﻿using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Logging;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Queries;
 using System;
 
 namespace Recipes.Web.Api.Controllers
-{    
+{
     [Route("api/v1/[controller]")]
     public class RecipesController : Controller
     {
         private readonly IRecipeCommandHandler _recipeCommandHandler;
         private readonly IQueryProvider<RecipeQuery> _recipeQueryProvider;
-        private readonly ILogger _logger;
 
-        public RecipesController(IRecipeCommandHandler recipeCommandHandler, IQueryProvider<RecipeQuery> recipeQueryProvider, ILoggerFactory _loggerFactory)
+        public RecipesController(IRecipeCommandHandler recipeCommandHandler, IQueryProvider<RecipeQuery> recipeQueryProvider)
         {
             _recipeCommandHandler = recipeCommandHandler;
             _recipeQueryProvider = recipeQueryProvider;
-            _logger = _loggerFactory.CreateLogger(GetType().FullName);
         }
-        
+
         [HttpGet]
         public IActionResult Get()
         {
-            _logger.LogDebug("Getting some recipes");
             var recipes = _recipeQueryProvider.GetAll();
             return new ObjectResult(recipes);
         }
-        
-        //[HttpGet("{id}")]
-        //public IActionResult Get(Guid id)
-        //{
-        //    return new HttpNotFoundResult();            
+
+        //[HttpGet("{title}")]
+        //public IActionResult Get(string title)
+        //{        
         //}
 
         // POST api/v1/recipes
         [HttpPost]
         public IActionResult Post()
         {
-            _logger.LogDebug("Saving some recipes");
             var recipeId = Guid.NewGuid();
             var addRecipeCommand = new AddRecipeCommand(recipeId, "Recipe Title 1", "Recipe Description 1");
             _recipeCommandHandler.Handle(addRecipeCommand);

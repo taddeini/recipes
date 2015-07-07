@@ -1,31 +1,141 @@
 {
   "locked": false,
-  "version": -9998,
-  "projectFileDependencyGroups": {
-    "": [
-      "EventStore.Client >= 3.0.2",
-      "Newtonsoft.Json >= 6.0.8",
-      "Microsoft.Framework.OptionsModel >= 1.0-*",
-      "MongoDB.Driver >= 2.0.0"
-    ],
-    "DNX,Version=v4.5.1": []
+  "version": -9996,
+  "targets": {
+    "DNX,Version=v4.5.1": {
+      "EventStore.Client/3.0.2": {
+        "compile": {
+          "lib/net40/EventStore.ClientAPI.dll": {}
+        },
+        "runtime": {
+          "lib/net40/EventStore.ClientAPI.dll": {}
+        }
+      },
+      "Microsoft.Framework.Configuration/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta5"
+        },
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Framework.Configuration.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Framework.Configuration.dll": {}
+        }
+      },
+      "Microsoft.Framework.Configuration.Abstractions/1.0.0-beta5": {
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Framework.Configuration.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Framework.Configuration.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Framework.Configuration.Binder/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.Framework.Configuration": "1.0.0-beta5"
+        },
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Framework.Configuration.Binder.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Framework.Configuration.Binder.dll": {}
+        }
+      },
+      "Microsoft.Framework.DependencyInjection.Abstractions/1.0.0-beta5": {
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Framework.DependencyInjection.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Framework.DependencyInjection.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Framework.OptionsModel/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta5",
+          "Microsoft.Framework.Configuration.Binder": "1.0.0-beta5",
+          "Microsoft.Framework.DependencyInjection.Abstractions": "1.0.0-beta5"
+        },
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.Framework.OptionsModel.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.Framework.OptionsModel.dll": {}
+        }
+      },
+      "MongoDB.Bson/2.0.0": {
+        "compile": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        }
+      },
+      "MongoDB.Driver/2.0.0": {
+        "dependencies": {
+          "MongoDB.Bson": "2.0.0",
+          "MongoDB.Driver.Core": "2.0.0"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        }
+      },
+      "MongoDB.Driver.Core/2.0.0": {
+        "dependencies": {
+          "MongoDB.Bson": "2.0.0"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        }
+      },
+      "Newtonsoft.Json/6.0.8": {
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      }
+    }
   },
   "libraries": {
     "EventStore.Client/3.0.2": {
-      "serviceable": false,
-      "sha": "P40o0JZbE4GaIGP0w/AkSNVnNQ52Iw1hQ8Vv+71iti6IHzKZBwar6bO9eslsW2S0se7BSUhVJX0UG72qIwyXuA==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [],
-          "runtimeAssemblies": [
-            "lib/net40/EventStore.ClientAPI.dll"
-          ],
-          "compileAssemblies": [
-            "lib/net40/EventStore.ClientAPI.dll"
-          ]
-        }
-      },
+      "sha512": "P40o0JZbE4GaIGP0w/AkSNVnNQ52Iw1hQ8Vv+71iti6IHzKZBwar6bO9eslsW2S0se7BSUhVJX0UG72qIwyXuA==",
       "files": [
         "EventStore.Client.3.0.2.nupkg",
         "EventStore.Client.3.0.2.nupkg.sha512",
@@ -34,193 +144,83 @@
         "lib/net40/EventStore.ClientAPI.xml"
       ]
     },
-    "Microsoft.Framework.ConfigurationModel/1.0.0-beta4": {
+    "Microsoft.Framework.Configuration/1.0.0-beta5": {
       "serviceable": true,
-      "sha": "VD5MhmQRhYVfxyDs1fyruPTj3pYwLMV5dXJkPUVg1KKbJ9qr/tEn3frJA1NN1jdeVBt1RrW5FXr+wWG9YoO9Yg==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {
-            "Microsoft.Framework.ConfigurationModel.Interfaces": "1.0.0-beta4",
-            "Microsoft.Framework.Runtime.Interfaces": "1.0.0-beta4"
-          },
-          "frameworkAssemblies": [
-            "mscorlib",
-            "System",
-            "System.Core",
-            "Microsoft.CSharp"
-          ],
-          "runtimeAssemblies": [
-            "lib/dnx451/Microsoft.Framework.ConfigurationModel.dll"
-          ],
-          "compileAssemblies": [
-            "lib/dnx451/Microsoft.Framework.ConfigurationModel.dll"
-          ]
-        }
-      },
+      "sha512": "UBw3f+fKi4/WHWIz3oTKF5UiLjmfvTiDgU9oCjYYApqKUMIji4VPbgsoqCzEzgXPHpLHDGkBal6Ux0Gcgu15Ig==",
       "files": [
-        "Microsoft.Framework.ConfigurationModel.1.0.0-beta4.nupkg",
-        "Microsoft.Framework.ConfigurationModel.1.0.0-beta4.nupkg.sha512",
-        "Microsoft.Framework.ConfigurationModel.nuspec",
-        "lib/dnx451/Microsoft.Framework.ConfigurationModel.dll",
-        "lib/dnx451/Microsoft.Framework.ConfigurationModel.xml",
-        "lib/dnxcore50/Microsoft.Framework.ConfigurationModel.dll",
-        "lib/dnxcore50/Microsoft.Framework.ConfigurationModel.xml",
-        "lib/net45/Microsoft.Framework.ConfigurationModel.dll",
-        "lib/net45/Microsoft.Framework.ConfigurationModel.xml",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.ConfigurationModel.dll",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.ConfigurationModel.xml"
+        "Microsoft.Framework.Configuration.1.0.0-beta5.nupkg",
+        "Microsoft.Framework.Configuration.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.Framework.Configuration.nuspec",
+        "lib/dnx451/Microsoft.Framework.Configuration.dll",
+        "lib/dnx451/Microsoft.Framework.Configuration.xml",
+        "lib/dotnet/Microsoft.Framework.Configuration.dll",
+        "lib/dotnet/Microsoft.Framework.Configuration.xml",
+        "lib/net45/Microsoft.Framework.Configuration.dll",
+        "lib/net45/Microsoft.Framework.Configuration.xml"
       ]
     },
-    "Microsoft.Framework.ConfigurationModel.Interfaces/1.0.0-beta4": {
+    "Microsoft.Framework.Configuration.Abstractions/1.0.0-beta5": {
       "serviceable": true,
-      "sha": "lU9+gyEz+jSeR+QsZxZtDf0U2DS/pl3I8/m7YeKjHMnjqoxUKFbSOpzegll7bhq0Alw7/8gF2Byrcy+PlzRc/g==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [
-            "mscorlib",
-            "System",
-            "System.Core",
-            "Microsoft.CSharp"
-          ],
-          "runtimeAssemblies": [
-            "lib/dnx451/Microsoft.Framework.ConfigurationModel.Interfaces.dll"
-          ],
-          "compileAssemblies": [
-            "lib/dnx451/Microsoft.Framework.ConfigurationModel.Interfaces.dll"
-          ]
-        }
-      },
+      "sha512": "dW5gHHlvvNnrFFSGtfOFhKClSi9Eb4WFPVdrrIbZYq2gIVw2Dde740p68H3+v9Fr511sk4yPCkGZ0wqXm1GObw==",
       "files": [
-        "Microsoft.Framework.ConfigurationModel.Interfaces.1.0.0-beta4.nupkg",
-        "Microsoft.Framework.ConfigurationModel.Interfaces.1.0.0-beta4.nupkg.sha512",
-        "Microsoft.Framework.ConfigurationModel.Interfaces.nuspec",
-        "lib/dnx451/Microsoft.Framework.ConfigurationModel.Interfaces.dll",
-        "lib/dnx451/Microsoft.Framework.ConfigurationModel.Interfaces.xml",
-        "lib/dnxcore50/Microsoft.Framework.ConfigurationModel.Interfaces.dll",
-        "lib/dnxcore50/Microsoft.Framework.ConfigurationModel.Interfaces.xml",
-        "lib/net45/Microsoft.Framework.ConfigurationModel.Interfaces.dll",
-        "lib/net45/Microsoft.Framework.ConfigurationModel.Interfaces.xml",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.ConfigurationModel.Interfaces.dll",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.ConfigurationModel.Interfaces.xml"
+        "Microsoft.Framework.Configuration.Abstractions.1.0.0-beta5.nupkg",
+        "Microsoft.Framework.Configuration.Abstractions.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.Framework.Configuration.Abstractions.nuspec",
+        "lib/dnx451/Microsoft.Framework.Configuration.Abstractions.dll",
+        "lib/dnx451/Microsoft.Framework.Configuration.Abstractions.xml",
+        "lib/dotnet/Microsoft.Framework.Configuration.Abstractions.dll",
+        "lib/dotnet/Microsoft.Framework.Configuration.Abstractions.xml",
+        "lib/net45/Microsoft.Framework.Configuration.Abstractions.dll",
+        "lib/net45/Microsoft.Framework.Configuration.Abstractions.xml"
       ]
     },
-    "Microsoft.Framework.DependencyInjection.Interfaces/1.0.0-beta4": {
+    "Microsoft.Framework.Configuration.Binder/1.0.0-beta5": {
       "serviceable": true,
-      "sha": "qbBGymgVdlrJZhJFg+35JaA0Tp8DYeFrDwv1Q3Di9hRWLZ3rAE7bvsnP+fmuo0XGlZDVXfGjINvtryFPyoQ58g==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [
-            "mscorlib",
-            "System",
-            "System.Core",
-            "Microsoft.CSharp"
-          ],
-          "runtimeAssemblies": [
-            "lib/dnx451/Microsoft.Framework.DependencyInjection.Interfaces.dll"
-          ],
-          "compileAssemblies": [
-            "lib/dnx451/Microsoft.Framework.DependencyInjection.Interfaces.dll"
-          ]
-        }
-      },
+      "sha512": "xSWVoCC0gtn9h12O/M2Eie6eXehJ0P2ovvGkZU5ZWNh8ycTyisyKrkhAmtObcF0dDdPJO9HXUHbRT5ady9fb8Q==",
       "files": [
-        "Microsoft.Framework.DependencyInjection.Interfaces.1.0.0-beta4.nupkg",
-        "Microsoft.Framework.DependencyInjection.Interfaces.1.0.0-beta4.nupkg.sha512",
-        "Microsoft.Framework.DependencyInjection.Interfaces.nuspec",
-        "lib/dnx451/Microsoft.Framework.DependencyInjection.Interfaces.dll",
-        "lib/dnx451/Microsoft.Framework.DependencyInjection.Interfaces.xml",
-        "lib/dnxcore50/Microsoft.Framework.DependencyInjection.Interfaces.dll",
-        "lib/dnxcore50/Microsoft.Framework.DependencyInjection.Interfaces.xml",
-        "lib/net45/Microsoft.Framework.DependencyInjection.Interfaces.dll",
-        "lib/net45/Microsoft.Framework.DependencyInjection.Interfaces.xml",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.DependencyInjection.Interfaces.dll",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.DependencyInjection.Interfaces.xml"
+        "Microsoft.Framework.Configuration.Binder.1.0.0-beta5.nupkg",
+        "Microsoft.Framework.Configuration.Binder.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.Framework.Configuration.Binder.nuspec",
+        "lib/dnx451/Microsoft.Framework.Configuration.Binder.dll",
+        "lib/dnx451/Microsoft.Framework.Configuration.Binder.xml",
+        "lib/dotnet/Microsoft.Framework.Configuration.Binder.dll",
+        "lib/dotnet/Microsoft.Framework.Configuration.Binder.xml",
+        "lib/net45/Microsoft.Framework.Configuration.Binder.dll",
+        "lib/net45/Microsoft.Framework.Configuration.Binder.xml"
       ]
     },
-    "Microsoft.Framework.OptionsModel/1.0.0-beta4": {
+    "Microsoft.Framework.DependencyInjection.Abstractions/1.0.0-beta5": {
       "serviceable": true,
-      "sha": "xjr084yTcmBLI8F3gb+hIEhf+ttanmbCWl54GkMhSH/dU1bqbR2Ts6Ks51kwUaACfNEDNY9zRwblT4of51lA6w==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {
-            "Microsoft.Framework.ConfigurationModel": "1.0.0-beta4",
-            "Microsoft.Framework.DependencyInjection.Interfaces": "1.0.0-beta4"
-          },
-          "frameworkAssemblies": [
-            "mscorlib",
-            "System",
-            "System.Core",
-            "Microsoft.CSharp"
-          ],
-          "runtimeAssemblies": [
-            "lib/dnx451/Microsoft.Framework.OptionsModel.dll"
-          ],
-          "compileAssemblies": [
-            "lib/dnx451/Microsoft.Framework.OptionsModel.dll"
-          ]
-        }
-      },
+      "sha512": "/WgY/P0YftvScIfLyLee36H7fb6EUG2L6p5qZMp7quJ3aUEHUolZpXBbYQ9XP21KuX4ab0/zH8DD0mpMKjGDsw==",
       "files": [
-        "Microsoft.Framework.OptionsModel.1.0.0-beta4.nupkg",
-        "Microsoft.Framework.OptionsModel.1.0.0-beta4.nupkg.sha512",
+        "Microsoft.Framework.DependencyInjection.Abstractions.1.0.0-beta5.nupkg",
+        "Microsoft.Framework.DependencyInjection.Abstractions.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.Framework.DependencyInjection.Abstractions.nuspec",
+        "lib/dnx451/Microsoft.Framework.DependencyInjection.Abstractions.dll",
+        "lib/dnx451/Microsoft.Framework.DependencyInjection.Abstractions.xml",
+        "lib/dotnet/Microsoft.Framework.DependencyInjection.Abstractions.dll",
+        "lib/dotnet/Microsoft.Framework.DependencyInjection.Abstractions.xml",
+        "lib/net45/Microsoft.Framework.DependencyInjection.Abstractions.dll",
+        "lib/net45/Microsoft.Framework.DependencyInjection.Abstractions.xml"
+      ]
+    },
+    "Microsoft.Framework.OptionsModel/1.0.0-beta5": {
+      "serviceable": true,
+      "sha512": "oK4jCjvQfz1NGBUf73euKqPDhC4aSJ3fkpOrozrOxVL85ToF+QyrD4yWclNCkf0/WnEUjXh6eWsfiEqI9zgODg==",
+      "files": [
+        "Microsoft.Framework.OptionsModel.1.0.0-beta5.nupkg",
+        "Microsoft.Framework.OptionsModel.1.0.0-beta5.nupkg.sha512",
         "Microsoft.Framework.OptionsModel.nuspec",
         "lib/dnx451/Microsoft.Framework.OptionsModel.dll",
         "lib/dnx451/Microsoft.Framework.OptionsModel.xml",
-        "lib/dnxcore50/Microsoft.Framework.OptionsModel.dll",
-        "lib/dnxcore50/Microsoft.Framework.OptionsModel.xml",
+        "lib/dotnet/Microsoft.Framework.OptionsModel.dll",
+        "lib/dotnet/Microsoft.Framework.OptionsModel.xml",
         "lib/net45/Microsoft.Framework.OptionsModel.dll",
-        "lib/net45/Microsoft.Framework.OptionsModel.xml",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.OptionsModel.dll",
-        "lib/portable-net451+win81+wpa81/Microsoft.Framework.OptionsModel.xml"
-      ]
-    },
-    "Microsoft.Framework.Runtime.Interfaces/1.0.0-beta4": {
-      "serviceable": true,
-      "sha": "RrZdqvUm8QbgxnZQuafYGo6NezoKx7VqAfAtHVzoKBm3GSV8xlPh90u1fsGhNCv37xJNk5PuRCa4Mq27ko7pLw==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [
-            "mscorlib",
-            "System",
-            "System.Core",
-            "Microsoft.CSharp"
-          ],
-          "runtimeAssemblies": [
-            "lib/dnx451/Microsoft.Framework.Runtime.Interfaces.dll"
-          ],
-          "compileAssemblies": [
-            "lib/dnx451/Microsoft.Framework.Runtime.Interfaces.dll"
-          ]
-        }
-      },
-      "files": [
-        "Microsoft.Framework.Runtime.Interfaces.1.0.0-beta4.nupkg",
-        "Microsoft.Framework.Runtime.Interfaces.1.0.0-beta4.nupkg.sha512",
-        "Microsoft.Framework.Runtime.Interfaces.nuspec",
-        "lib/dnx451/Microsoft.Framework.Runtime.Interfaces.dll",
-        "lib/dnx451/Microsoft.Framework.Runtime.Interfaces.xml",
-        "lib/dnxcore50/Microsoft.Framework.Runtime.Interfaces.dll",
-        "lib/dnxcore50/Microsoft.Framework.Runtime.Interfaces.xml"
+        "lib/net45/Microsoft.Framework.OptionsModel.xml"
       ]
     },
     "MongoDB.Bson/2.0.0": {
-      "serviceable": false,
-      "sha": "oij2O4yegOKc6zZByxhbuILQIqT0xbUv9DHAt7HdQTzvlOJ7WgKwsMsoQR6VO4qd8PntGvcC9o/sNAj3KdndKA==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [],
-          "runtimeAssemblies": [
-            "lib/net45/MongoDB.Bson.dll"
-          ],
-          "compileAssemblies": [
-            "lib/net45/MongoDB.Bson.dll"
-          ]
-        }
-      },
+      "sha512": "oij2O4yegOKc6zZByxhbuILQIqT0xbUv9DHAt7HdQTzvlOJ7WgKwsMsoQR6VO4qd8PntGvcC9o/sNAj3KdndKA==",
       "files": [
         "License.rtf",
         "MongoDB.Bson.2.0.0.nupkg",
@@ -231,23 +231,7 @@
       ]
     },
     "MongoDB.Driver/2.0.0": {
-      "serviceable": false,
-      "sha": "MloX+kZsJsrDqtCRZShRRwcVbSUdj7II98gl7aXcXfCKXEFMWn3931o39YTMv6nwN/Z0MxkVJ0r68Vr1nO3pbw==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {
-            "MongoDB.Bson": "2.0.0",
-            "MongoDB.Driver.Core": "2.0.0"
-          },
-          "frameworkAssemblies": [],
-          "runtimeAssemblies": [
-            "lib/net45/MongoDB.Driver.dll"
-          ],
-          "compileAssemblies": [
-            "lib/net45/MongoDB.Driver.dll"
-          ]
-        }
-      },
+      "sha512": "MloX+kZsJsrDqtCRZShRRwcVbSUdj7II98gl7aXcXfCKXEFMWn3931o39YTMv6nwN/Z0MxkVJ0r68Vr1nO3pbw==",
       "files": [
         "License.rtf",
         "MongoDB.Driver.2.0.0.nupkg",
@@ -258,22 +242,7 @@
       ]
     },
     "MongoDB.Driver.Core/2.0.0": {
-      "serviceable": false,
-      "sha": "mMU89OUiwuSsDW7A2vYEt2VNOpbrD0IR0dtnGyGlIj8IENjIDZG9uXRkIMipW9fl8XBRl8eKWss4AQvTPXtaKg==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {
-            "MongoDB.Bson": "2.0.0"
-          },
-          "frameworkAssemblies": [],
-          "runtimeAssemblies": [
-            "lib/net45/MongoDB.Driver.Core.dll"
-          ],
-          "compileAssemblies": [
-            "lib/net45/MongoDB.Driver.Core.dll"
-          ]
-        }
-      },
+      "sha512": "mMU89OUiwuSsDW7A2vYEt2VNOpbrD0IR0dtnGyGlIj8IENjIDZG9uXRkIMipW9fl8XBRl8eKWss4AQvTPXtaKg==",
       "files": [
         "License.rtf",
         "MongoDB.Driver.Core.2.0.0.nupkg",
@@ -283,20 +252,7 @@
       ]
     },
     "Newtonsoft.Json/6.0.8": {
-      "serviceable": false,
-      "sha": "nZX7xCBl3PXpxRCxVtVfUXn63gSzrT8aO0VB9Tp24q656IUup9EGE8SGlo0UJ9if48OacJU34ZEtKEGWIdNCzg==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [],
-          "runtimeAssemblies": [
-            "lib/net45/Newtonsoft.Json.dll"
-          ],
-          "compileAssemblies": [
-            "lib/net45/Newtonsoft.Json.dll"
-          ]
-        }
-      },
+      "sha512": "7ut47NDedTW19EbL0JpFDYUP62fcuz27hJrehCDNajdCS5NtqL+E39+7Um3OkNc2wl2ym7K8Ln5eNuLus6mVGQ==",
       "files": [
         "Newtonsoft.Json.6.0.8.nupkg",
         "Newtonsoft.Json.6.0.8.nupkg.sha512",
@@ -318,5 +274,14 @@
         "tools/install.ps1"
       ]
     }
+  },
+  "projectFileDependencyGroups": {
+    "": [
+      "EventStore.Client >= 3.0.2",
+      "Newtonsoft.Json >= 6.0.8",
+      "Microsoft.Framework.OptionsModel >= 1.0-*",
+      "MongoDB.Driver >= 2.0.0"
+    ],
+    "DNX,Version=v4.5.1": []
   }
 }

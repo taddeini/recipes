@@ -4,9 +4,10 @@ namespace Recipes.Web.Controllers
 {
     public class HomeController : Controller
     {        
+        [HttpGet]
         public IActionResult Index()
         {
-            return RedirectToActionPermanent("index", "recipes");
+            return new FilePathResult("Index.htm", "text/html");
         }
     }
 }

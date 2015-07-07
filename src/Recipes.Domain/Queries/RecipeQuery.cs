@@ -8,6 +8,8 @@ namespace Recipes.Domain.Queries
 
         public string Title { get; set; }
 
+        public string UrlTitle { get; set; }
+
         public string Description { get; set; }
     }
 }

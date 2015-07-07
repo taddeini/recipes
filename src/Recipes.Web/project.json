@@ -1,15 +1,15 @@
-{
-  /* Click to learn more about project.json  http://go.microsoft.com/fwlink/?LinkID=517074 */
+{  
   "webroot": "wwwroot",
   "version": "1.0.0-*",
   "dependencies": {
-    "Microsoft.AspNet.Mvc": "6.0-*",
-    "Microsoft.AspNet.Mvc.TagHelpers": "6.0-*",
-    "Microsoft.AspNet.Server.IIS": "1.0-*",
-    "Microsoft.AspNet.Server.WebListener": "1.0-*",
-    "Microsoft.AspNet.StaticFiles": "1.0-*",
-    "Microsoft.Framework.ConfigurationModel.Json": "1.0-*",
-    "Serilog.Framework.Logging": "1.0-*",
+    "Microsoft.AspNet.Mvc": "6.0.0-beta5",
+    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta5",
+    "Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
+    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-beta5",
+    "Microsoft.Framework.Configuration": "1.0.0-beta5",    
+    "Microsoft.Framework.Configuration.Json": "1.0.0-beta5",
+    "Serilog.Framework.Logging": "1.0.0-beta-3",
     "Recipes.Domain": "1.0-*"
   },
   "frameworks": {
@@ -17,12 +17,10 @@
   },
   "exclude": [
     "wwwroot",
-    "node_modules",
-    "bower_components"
+    "node_modules"
   ],
   "publishExclude": [
-    "node_modules",
-    "bower_components",
+    "node_modules",    
     "**.kproj",
     "**.user",
     "**.vspscc"

@@ -1,6 +1,7 @@
-﻿using Xunit;
+﻿using Recipes.Domain;
+using Xunit;
 
-namespace Recipes.Web.Tests
+namespace Recipes.Domain.Tests
 {
     public class RecipeUtilsTests
     {

@@ -4,6 +4,9 @@ using Recipes.Domain.Commands;
 using Recipes.Domain.Queries;
 using Recipes.Domain.Repositories;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -51,7 +54,16 @@ namespace Recipes.Domain.Tests.Commands
         [Fact]
         public void HandleAddRecipeCommand_WithTitleThatAlreadyExists_ThrowsAnInvalidOperationsException()
         {
-            Assert.False(true);
+            // Arrange
+            var fakeRecipes = new List<RecipeQuery> { new RecipeQuery { Title = "foo" } };
+            _mockRecipeQueryProvider
+                .Find(Arg.Any<Expression<Func<RecipeQuery, bool>>>())
+                .Returns(Task.FromResult(fakeRecipes.AsEnumerable()));
+
+            // Act/Assert
+            Assert.Throws(typeof(InvalidOperationException), () => {
+                handler.Handle(new AddRecipeCommand(Guid.NewGuid(), "foo", "bar"));
+            });                       
         }
 
         [Fact]
@@ -69,9 +81,24 @@ namespace Recipes.Domain.Tests.Commands
             _mockRecipeRepository.DidNotReceive().Save(Arg.Any<RecipeAggregate>());
         }
 
+        [Fact]
         public void HandleUpdateRecipeCommand_WithTitleThatAlreadyExists_DoesNotUpdateTheRecipe()
         {
-            Assert.False(true);
+            // Arrange
+            _mockRecipeRepository
+                .Get(Arg.Any<Guid>())
+                .Returns(rec => Task.FromResult(RecipeAggregate.Create(Guid.NewGuid(), "foo", "bar")));
+
+            var fakeRecipes = new List<RecipeQuery> { new RecipeQuery { Title = "foo" } };
+            _mockRecipeQueryProvider
+                .Find(Arg.Any<Expression<Func<RecipeQuery, bool>>>())                
+                .Returns(Task.FromResult(fakeRecipes.AsEnumerable()));
+
+            // Act
+            handler.Handle(new UpdateRecipeCommand(Guid.NewGuid(), "foo", "bar"));
+
+            // Assert
+            _mockRecipeRepository.DidNotReceive().Save(Arg.Any<RecipeAggregate>());
         }
 
         [Fact]
@@ -79,7 +106,7 @@ namespace Recipes.Domain.Tests.Commands
         {
             // Arrange
             var id = Guid.NewGuid();
-            var recipe = RecipeAggregate.Create(id, "foo", "bar");            
+            var recipe = RecipeAggregate.Create(id, "foo", "bar");
             var deleteCommand = new DeleteRecipeCommand(id);
 
             _mockRecipeRepository.Get(id).Returns(Task.FromResult(recipe));

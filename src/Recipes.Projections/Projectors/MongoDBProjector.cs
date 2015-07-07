@@ -1,6 +1,7 @@
 ﻿using EventStore.ClientAPI;
 using MongoDB.Driver;
 using Newtonsoft.Json;
+using Recipes.Domain;
 using Recipes.Domain.Events;
 using Recipes.Domain.Queries;
 using System;
@@ -30,6 +31,7 @@ namespace Recipes.Projections.Projectors
                     {
                         Id = recipeAdded.Id,
                         Title = recipeAdded.Title,
+                        UrlTitle = RecipeUtils.ConvertTitleToUrl(recipeAdded.Title),
                         Description = recipeAdded.Description
                     };
                     _recipes.InsertOneAsync(recipe);
@@ -50,7 +52,9 @@ namespace Recipes.Projections.Projectors
                     var titleUpdated = JsonConvert.DeserializeObject<RecipeTitleUpdated>(eventData);
 
                     _recipes.UpdateOneAsync(rec => (rec.Id == titleUpdated.Id),
-                        Builders<RecipeQuery>.Update.Set(rec => rec.Title, titleUpdated.Title));
+                        Builders<RecipeQuery>.Update
+                            .Set(rec => rec.Title, titleUpdated.Title)
+                            .Set(rec => rec.UrlTitle, RecipeUtils.ConvertTitleToUrl(titleUpdated.Title)));
 
                     ConsoleIt(recordedEvent);
                     break;

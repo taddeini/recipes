@@ -1,6 +1,6 @@
 ﻿using EventStore.ClientAPI;
 using EventStore.ClientAPI.SystemData;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Recipes.Domain.Common;
 using Recipes.Projections.Projectors;
 using System;
@@ -14,7 +14,10 @@ namespace Recipes.Projections.Host
 
         public void Main(string[] args)
         {
-            var config = new Configuration().AddJsonFile("config.json");            
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("config.json")
+                .Build();            
+
             var connection = EventStoreConnectionFactory.GetConnection(config);
 
             // Subscribe to connection notifications
