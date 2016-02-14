@@ -1,10 +1,11 @@
 {
   "name": "Recipes",
   "version": "0.1.0",
-  "dependencies": {            
-    "lodash": "^3.9.3"
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "react": "^0.14.7"
   },
-  "devDependencies": {    
+  "devDependencies": {
     "del": "^1.2.0",
     "gulp": "^3.8.11",
     "gulp-less": "^3.0.3",

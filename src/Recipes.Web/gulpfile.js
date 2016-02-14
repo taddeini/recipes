@@ -11,29 +11,31 @@ eval('var project = ' + fs.readFileSync('./project.json'));
 var root = __dirname + '/' + project.webroot + '/';
 var node_modules = __dirname + '/node_modules/';
 
-var locations = {
-    packages: node_modules,
+var sources = {
+    styles: root + 'css/',
+    lodash: node_modules + 'lodash/index.js',
+    react: node_modules + 'react/dist/react.js'
+};
+
+var destinations = {
     styles: root + 'css/',
     lib: root + 'lib/',
     tests_lib: root + 'tests/lib/'
-};
+}
 
 gulp.task('compile-less', function () {
-    gulp.src(locations.styles + '**/*.less')
+    return gulp.src(sources.styles + '**/*.less')
        .pipe(less())
-       .pipe(gulp.dest(locations.styles));
+       .pipe(gulp.dest(destinations.styles));
 });
 
 gulp.task('copy-lib', function () {
-    del([locations.lib, locations.tests_lib],
-        function () {            
-            gulp.src(locations.packages + 'lodash/index.js')
-                .pipe(gulp.dest(locations.lib + 'lodash'));
-        });
+    return gulp.src([sources.lodash, sources.react])
+        .pipe(gulp.dest(destinations.lib));
 });
 
 gulp.task('build', function () {
-    sequence('copy-lib', 'compile-less');
+    return sequence('copy-lib', 'compile-less');
 });
 
 gulp.task('test', function (done) {
@@ -41,7 +43,7 @@ gulp.task('test', function (done) {
 });
 
 gulp.task('watch-less', function () {
-    watch(locations.styles + '*.less', function () {
+    return watch(sources.styles + '*.less', function () {
         sequence('compile-less');
     });
 })
