@@ -4,8 +4,7 @@ var gulp = require('gulp'),
     fs = require('fs'),
     sequence = require('run-sequence'),
     watch = require('gulp-watch'),
-    less = require('gulp-less'),
-    karma = require('karma').server;
+    less = require('gulp-less');
 
 eval('var project = ' + fs.readFileSync('./project.json'));
 
@@ -38,10 +37,7 @@ gulp.task('build', function () {
 });
 
 gulp.task('test', function (done) {
-    karma.start({
-        configFile: __dirname + '/karma.config.js',
-        singleRun: true
-    }, done);
+    //TODO: no more karma, use gulp-mocha
 });
 
 gulp.task('watch-less', function () {

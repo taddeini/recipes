@@ -13,8 +13,8 @@ namespace Recipes.Projections.Host
         private List<IProjector> _projectors = new List<IProjector>();
 
         public void Main(string[] args)
-        {
-            var config = new ConfigurationBuilder()
+        {            
+            var config = new ConfigurationBuilder(".")
                 .AddJsonFile("config.json")
                 .Build();            
 
@@ -26,8 +26,7 @@ namespace Recipes.Projections.Host
             connection.Connected += (s, a) => Console.WriteLine($"ES connected: {a.RemoteEndPoint}");
             connection.Disconnected += (s, a) => Console.WriteLine($"ES disconnected: {a.RemoteEndPoint}");
             connection.ErrorOccurred += (s, a) => Console.WriteLine($"ES error: {a.Exception.Message}");
-            connection.Reconnecting += (s, a) => Console.WriteLine($"ES reconnecting...");
-            connection.ConnectAsync().Wait();
+            connection.Reconnecting += (s, a) => Console.WriteLine($"ES reconnecting...");            
 
             // Subscribe to events
             connection.SubscribeToAllAsync(false,

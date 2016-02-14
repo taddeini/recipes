@@ -1,6 +1,5 @@
 ﻿using EventStore.ClientAPI;
 using Newtonsoft.Json;
-using Recipes.Domain.Aggregates;
 using Recipes.Domain.Events;
 using System;
 using System.Collections.Generic;
@@ -9,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace Recipes.Domain.Repositories
 {    
-    public class EventStoreRecipeRepository<TAggregate> : IRepository<TAggregate> where TAggregate : Aggregate
+    public class EventStoreRepository<TAggregate> : IRepository<TAggregate> where TAggregate : Aggregate
     {
         private readonly IEventStoreConnection _connection;
         private readonly static string AGGREGATE_PREFIX = "recipe";
         private readonly static string QUALIFIED_NAME_FORMAT = "Recipes.Domain.Events.{0}, Recipes.Domain";
 
-        public EventStoreRecipeRepository(IEventStoreConnection connection)
+        public EventStoreRepository(IEventStoreConnection connection)
         {
-            _connection = connection;
-            _connection.ConnectAsync().Wait();
+            _connection = connection;            
         }
         
         public Task<TAggregate> Get(Guid id)

@@ -39,8 +39,8 @@ namespace Recipes.Projections.Projectors
                     ConsoleIt(recordedEvent);
                     break;
 
-                case nameof(RecipeDescriptionUpdated):
-                    var descUpdated = JsonConvert.DeserializeObject<RecipeDescriptionUpdated>(eventData);
+                case nameof(RecipeDescriptionChanged):
+                    var descUpdated = JsonConvert.DeserializeObject<RecipeDescriptionChanged>(eventData);
 
                     _recipes.UpdateOneAsync(rec => (rec.Id == descUpdated.Id),
                         Builders<RecipeQuery>.Update.Set(rec => rec.Description, descUpdated.Description));
@@ -48,8 +48,8 @@ namespace Recipes.Projections.Projectors
                     ConsoleIt(recordedEvent);
                     break;
 
-                case nameof(RecipeTitleUpdated):
-                    var titleUpdated = JsonConvert.DeserializeObject<RecipeTitleUpdated>(eventData);
+                case nameof(RecipeTitleChanged):
+                    var titleUpdated = JsonConvert.DeserializeObject<RecipeTitleChanged>(eventData);
 
                     _recipes.UpdateOneAsync(rec => (rec.Id == titleUpdated.Id),
                         Builders<RecipeQuery>.Update

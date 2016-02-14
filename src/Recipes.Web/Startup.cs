@@ -1,25 +1,27 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Recipes.Domain;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Common;
 using Recipes.Domain.Queries;
+using Recipes.Domain.Repositories;
 using Serilog;
 
 namespace Recipes
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; set; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment hostEnv)
         {
             // Setup configuration source
             Configuration = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
-                .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"config.{hostEnv.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 
@@ -31,15 +33,15 @@ namespace Recipes
         // Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddMvc()
+            services.AddMvc();
 
-                // Register dependencies
-                .AddSingleton(db => MongoDBFactory.GetDatabase(Configuration))
-                .AddSingleton(logger => Log.Logger)
+            //// Register dependencies
+            //.AddSingleton(db => MongoDBFactory.GetDatabase(Configuration))
+            //.AddSingleton(logger => Log.Logger)
 
-                .AddTransient<IRecipeCommandHandler, RecipeCommandHandler>()
-                .AddSingleton<IQueryProvider<RecipeQuery>, MongoDBRecipeQueryProvider>();                
+            //.AddTransient<IRecipeCommandHandler, RecipeCommandHandler>()
+            //.AddSingleton<IRepository<RecipeAggregate>, EventStoreRepository<RecipeAggregate>>()
+            //.AddSingleton<IQueryProvider<RecipeQuery>, MongoDBRecipeQueryProvider>();
         }
 
         // Configure is called after ConfigureServices is called.
@@ -49,14 +51,15 @@ namespace Recipes
 
             app.UseStaticFiles();
 
-            // Add MVC to the request pipeline.
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        // Entry point for the application.
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

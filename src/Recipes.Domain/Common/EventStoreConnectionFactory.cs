@@ -8,8 +8,14 @@ namespace Recipes.Domain.Common
     {
         public static IEventStoreConnection GetConnection(IConfiguration settings)
         {
-            var ipAddress = Dns.GetHostAddresses(settings.Get("eventStore:hostName"))[0];
-            return EventStoreConnection.Create(new IPEndPoint(ipAddress, int.Parse(settings.Get("eventStore:port"))));
+            //var ipAddress = Dns.GetHostAddresses(settings.Get("eventStore:hostName"))[0];
+            //var endpoint = new IPEndPoint(ipAddress, int.Parse(settings.Get("eventStore:port")));
+            //var connection = EventStoreConnection.Create(endpoint);
+
+            //connection.ConnectAsync().Wait();
+
+            //return connection;
+            return null;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Recipes.Domain.Aggregates;
+﻿using Recipes.Domain;
 using Recipes.Domain.Queries;
 using Recipes.Domain.Repositories;
 using System;
@@ -9,7 +9,8 @@ namespace Recipes.Domain.Commands
     public interface IRecipeCommandHandler :
         ICommandHandler<AddRecipeCommand>,
         ICommandHandler<UpdateRecipeCommand>,
-        ICommandHandler<DeleteRecipeCommand>
+        ICommandHandler<DeleteRecipeCommand>,
+        ICommandHandler<AddIngredientCommand>
     { }
 
     public class RecipeCommandHandler : IRecipeCommandHandler
@@ -69,6 +70,16 @@ namespace Recipes.Domain.Commands
                 recipe.Delete();
                 _recipeRepository.Save(recipe);
             }
+        }
+
+        public void Handle(AddIngredientCommand command)
+        {
+            //var recipe = _recipeRepository.Get(command.Id).Result;
+            //if (recipe != null)
+            //{
+            //    recipe.AddIngredient(command);
+            //    _recipeRepository.Save(recipe);
+            //}
         }
     }
 }

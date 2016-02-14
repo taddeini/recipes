@@ -2,9 +2,9 @@
 
 namespace Recipes.Domain.Events
 {
-    public class RecipeTitleUpdated : Event
+    public class RecipeTitleChanged : Event
     {
-        public RecipeTitleUpdated(Guid id, string title) : base(id)
+        public RecipeTitleChanged(Guid id, string title) : base(id)
         {            
             Title = title;            
         }

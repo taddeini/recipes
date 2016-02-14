@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Configuration;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Queries;
 using System;
@@ -9,12 +10,13 @@ namespace Recipes.Web.Api.Controllers
     public class RecipesController : Controller
     {
         private readonly IRecipeCommandHandler _recipeCommandHandler;
-        private readonly IQueryProvider<RecipeQuery> _recipeQueryProvider;
+        private readonly IQueryProvider<RecipeQuery> _recipeQueryProvider;        
 
         public RecipesController(IRecipeCommandHandler recipeCommandHandler, IQueryProvider<RecipeQuery> recipeQueryProvider)
         {
+
             _recipeCommandHandler = recipeCommandHandler;
-            _recipeQueryProvider = recipeQueryProvider;
+            _recipeQueryProvider = recipeQueryProvider;            
         }
 
         [HttpGet]

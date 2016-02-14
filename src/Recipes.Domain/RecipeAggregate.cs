@@ -1,19 +1,21 @@
 ﻿using Recipes.Domain.Events;
 using System;
+using System.Collections.Generic;
 
-namespace Recipes.Domain.Aggregates
+namespace Recipes.Domain
 {
     public class RecipeAggregate : Aggregate
     {
         private string _title;
         private string _description;
+        private IList<Ingredient> _ingredients;
 
         internal RecipeAggregate()
         {
             Handles<RecipeAdded>(OnRecipeAdded);
-            Handles<RecipeTitleUpdated>(OnRecipeTitleUpdated);
-            Handles<RecipeDescriptionUpdated>(OnRecipeDescriptionUpdated);
-        }        
+            Handles<RecipeTitleChanged>(OnRecipeTitleUpdated);
+            Handles<RecipeDescriptionChanged>(OnRecipeDescriptionUpdated);
+        }
 
         public static RecipeAggregate Create(Guid id, string title, string description)
         {
@@ -26,18 +28,23 @@ namespace Recipes.Domain.Aggregates
         {
             if (title != _title)
             {
-                ApplyEvent(new RecipeTitleUpdated(Id, title));
+                ApplyEvent(new RecipeTitleChanged(Id, title));
             }
 
             if (description != _description)
             {
-                ApplyEvent(new RecipeDescriptionUpdated(Id, description));
+                ApplyEvent(new RecipeDescriptionChanged(Id, description));
             }
         }
 
         public void Delete()
         {
             ApplyEvent(new RecipeDeleted(Id));
+        }
+
+        public void AddIngredient(Ingredient ingredient)
+        {
+
         }
 
         private void OnRecipeAdded(RecipeAdded added)
@@ -47,14 +54,14 @@ namespace Recipes.Domain.Aggregates
             _title = added.Title;
         }
 
-        private void OnRecipeTitleUpdated(RecipeTitleUpdated titleUpdated)
+        private void OnRecipeTitleUpdated(RecipeTitleChanged titleUpdated)
         {
             _title = titleUpdated.Title;
         }
 
-        private void OnRecipeDescriptionUpdated(RecipeDescriptionUpdated descUpdated)
+        private void OnRecipeDescriptionUpdated(RecipeDescriptionChanged descUpdated)
         {
             _description = descUpdated.Description;
-        } 
+        }
     }
 }

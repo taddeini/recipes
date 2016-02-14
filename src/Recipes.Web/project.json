@@ -1,15 +1,13 @@
-{  
+{
   "webroot": "wwwroot",
   "version": "1.0.0-*",
   "dependencies": {
-    "Microsoft.AspNet.Mvc": "6.0.0-beta5",
-    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta5",
-    "Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
-    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-beta5",
-    "Microsoft.Framework.Configuration": "1.0.0-beta5",    
-    "Microsoft.Framework.Configuration.Json": "1.0.0-beta5",
-    "Serilog.Framework.Logging": "1.0.0-beta-3",
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+    "Serilog.Framework.Logging": "1.0.0-rc1-final-*",
     "Recipes.Domain": "1.0-*"
   },
   "frameworks": {
@@ -20,9 +18,15 @@
     "node_modules"
   ],
   "publishExclude": [
-    "node_modules",    
+    "node_modules",
     "**.kproj",
     "**.user",
     "**.vspscc"
-  ]
+  ],
+  "commands": {
+    "web": "Microsoft.AspNet.Server.Kestrel"
+  },
+  "scripts": {
+    "prepublish": [ "npm install", "gulp build" ]
+  }
 }

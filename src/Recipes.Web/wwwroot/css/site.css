@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../fonts/OpenSans/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Merriweather';
+  src: url('../fonts/Merriweather/Merriweather-Regular.ttf') format('truetype');
+}
+body {
+  font-family: 'OpenSans', sans-serif;
+  padding-top: 40px;
+}
+h1,
+h2,
+h3 {
+  font-family: 'Merriweather', serif;
+}
+h1 {
+  margin-bottom: 2rem;
+}
+section {
+  margin-bottom: 4rem;
+}
+ol,
+ul {
+  list-style-position: outside;
+  margin-left: 3rem;
+}
+#intro .facts {
+  margin-bottom: 4rem;
+}
+#intro .fact {
+  color: #666;
+  display: inline-block;
+  text-transform: uppercase;
+}
+#intro .fact strong {
+  color: initial;
+  margin-left: 0.4rem;
+}
+#ingredients .amount {
+  display: inline-block;
+  width: 40px;
+}

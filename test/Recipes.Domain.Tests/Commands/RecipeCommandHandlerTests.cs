@@ -1,5 +1,4 @@
 ﻿using NSubstitute;
-using Recipes.Domain.Aggregates;
 using Recipes.Domain.Commands;
 using Recipes.Domain.Queries;
 using Recipes.Domain.Repositories;

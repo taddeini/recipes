@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Recipes.Domain.Aggregates
+namespace Recipes.Domain
 {
     public abstract class Aggregate
     {
@@ -14,7 +14,7 @@ namespace Recipes.Domain.Aggregates
         public Guid Id { get; protected set; }
 
         //TODO: Implement
-        public int Version { get; private set; }
+        public int Version { get; }
 
         public IEnumerable<Event> PendingChanges => _pendingChanges;
 
@@ -24,19 +24,19 @@ namespace Recipes.Domain.Aggregates
         }
 
         public void MarkChangesCommitted()
-        {            
+        {
             _pendingChanges.Clear();
         }
 
         protected virtual void ApplyEvent<TEvent>(TEvent @event) where TEvent : Event
-        {            
+        {
             _pendingChanges.Add(@event);
 
             if (_handlers.ContainsKey(@event.GetType()))
             {
-                var handler = _handlers[@event.GetType()];                
-                handler.Invoke(@event);                
-            }            
+                var handler = _handlers[@event.GetType()];
+                handler.Invoke(@event);
+            }
         }
 
         public static TAggregate LoadFromHistory<TAggregate>(IEnumerable<Event> history) where TAggregate : Aggregate

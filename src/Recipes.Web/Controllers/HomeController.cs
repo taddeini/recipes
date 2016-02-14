@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Recipes.Web.Controllers
 {
     public class HomeController : Controller
-    {        
+    {
         [HttpGet]
         public IActionResult Index()
         {
-            return new FilePathResult("Index.htm", "text/html");
+            return View();
         }
     }
 }

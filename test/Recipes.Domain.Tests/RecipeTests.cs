@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace Recipes.Domain.Aggregates.Tests
+namespace Recipes.Domain.Tests
 {
     public class RecipeTests
     {
@@ -47,9 +47,9 @@ namespace Recipes.Domain.Aggregates.Tests
             // Assert
             Assert.Equal(1, recipe.PendingChanges.Count());                      
 
-            var titleUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeTitleUpdated;
+            var titleUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeTitleChanged;
             Assert.NotNull(titleUpdatedEvent);
-            Assert.IsType(typeof(RecipeTitleUpdated), titleUpdatedEvent);
+            Assert.IsType(typeof(RecipeTitleChanged), titleUpdatedEvent);
         }
 
         [Fact]
@@ -66,9 +66,9 @@ namespace Recipes.Domain.Aggregates.Tests
             // Assert
             Assert.Equal(1, recipe.PendingChanges.Count());
             
-            var descUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeDescriptionUpdated;
+            var descUpdatedEvent = recipe.PendingChanges.FirstOrDefault() as RecipeDescriptionChanged;
             Assert.NotNull(descUpdatedEvent);
-            Assert.IsType(typeof(RecipeDescriptionUpdated), descUpdatedEvent);            
+            Assert.IsType(typeof(RecipeDescriptionChanged), descUpdatedEvent);            
         }
 
         [Fact]

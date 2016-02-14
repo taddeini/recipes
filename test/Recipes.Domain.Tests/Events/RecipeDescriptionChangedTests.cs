@@ -4,23 +4,23 @@ using Xunit;
 
 namespace Recipes.Domain.Tests.Events
 {
-    public class RecipeTitleUpdatedTests
+    public class RecipeTitleChangedTests
     {
         [Fact]
-        public void CreatingRecipeTitleUpdatedEvent_WithInvalidValues_ThrowsAnException()
+        public void CreatingRecipeTitleChangedEvent_WithInvalidValues_ThrowsAnException()
         {
-            Assert.Throws(typeof(ArgumentNullException), () => new RecipeTitleUpdated(Guid.Empty, "foo"));
+            Assert.Throws(typeof(ArgumentNullException), () => new RecipeTitleChanged(Guid.Empty, "foo"));
         }
 
         [Fact]
-        public void CreatingRecipeTitleUpdatedEvent_WithValidValues_SetsPropertiesCorrectly()
+        public void CreatingRecipeTitleChangedEvent_WithValidValues_SetsPropertiesCorrectly()
         {
             // Arrange    
             var id = Guid.NewGuid();
             var title = "foo";
 
             // Act
-            var @event = new RecipeTitleUpdated(id, title);
+            var @event = new RecipeTitleChanged(id, title);
 
             // Assert            
             Assert.Equal(id, @event.Id);
