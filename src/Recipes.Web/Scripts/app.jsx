@@ -1,10 +1,5 @@
 ﻿var React = require('react');
 var ReactDOM = require('react-dom');
+var AppRouter = require('./appRouter.jsx');
 
-var App = React.createClass({
-    render: function () {
-        return (<h1>Hello World!</h1>);
-    }
-});
-
-ReactDOM.render(<App />, document.getElementById('main-content'));
+ReactDOM.render(<AppRouter />, document.getElementById('main-content'));
