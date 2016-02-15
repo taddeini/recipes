@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace Recipes.Web.Controllers
 {
@@ -7,8 +6,8 @@ namespace Recipes.Web.Controllers
     {
         [HttpGet]
         public IActionResult Index()
-        {
-            return View();
+        {                        
+            return new FileContentResult(System.IO.File.ReadAllBytes("dist/index.htm"), "text/html");
         }
     }
 }
