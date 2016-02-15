@@ -1,7 +1,7 @@
 ﻿var React = require('react');
 
-var Ingredients = require('./ingredientsDetail.jsx');
-var Directions = require('./directionsDetail.jsx');
+var Ingredients = require('./ingredients.jsx');
+var Directions = require('./directions.jsx');
 
 var RecipeDetail = React.createClass({
     getInitialState: function () {

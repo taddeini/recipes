@@ -1,6 +1,6 @@
 ﻿var React = require('react');
 
-var DirectionsDetail = React.createClass({
+var Directions = React.createClass({
     render: function () {
         return (
              <ol>
@@ -27,4 +27,4 @@ var DirectionsDetail = React.createClass({
     }
 });
 
-module.exports = DirectionsDetail;
+module.exports = Directions;

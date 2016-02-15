@@ -27,13 +27,14 @@ gulp.task('fonts', function () {
 gulp.task('styles', function () {
     return gulp.src(
         [
+            'node_modules/font-awesome/css/font-awesome.css',
             'node_modules/skeleton-css/css/normalize.css',
             'node_modules/skeleton-css/css/skeleton.css',
             './Styles/main.less'
         ])        
         .pipe(less())
         .pipe(concat('app.css'))
-        .pipe(minify())
+        //.pipe(minify())
         .pipe(gulp.dest(dist_root + '/css'));
 });
 
@@ -42,11 +43,11 @@ gulp.task('pre-build', function () {
 });
 
 gulp.task('build', ['pre-build'], function () {
-    return browserify('./Scripts/app.jsx')
+    return browserify('./Scripts/components/app.jsx')
         .transform(reactify)
         .bundle()
         .pipe(source('app.js'))
         .pipe(buffer())
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(dist_root));
 });

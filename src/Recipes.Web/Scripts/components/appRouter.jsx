@@ -2,7 +2,7 @@
 var RouterMixin = require('react-mini-router').RouterMixin;
 
 var Search = require('./search/search.jsx');
-var RecipeDetail = require('./recipe/recipeDetail.jsx');
+var RecipeDetail = require('./recipeDetail/recipeDetail.jsx');
 
 var AppRouter = React.createClass({
     mixins: [RouterMixin],

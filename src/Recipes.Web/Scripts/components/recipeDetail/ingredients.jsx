@@ -1,6 +1,6 @@
 ﻿var React = require('react');
 
-var IngredientsDetail = React.createClass({
+var Ingredients = React.createClass({
     render: function () {
         return (
             <ul>
@@ -14,4 +14,4 @@ var IngredientsDetail = React.createClass({
     }
 });
 
-module.exports = IngredientsDetail;
+module.exports = Ingredients;
