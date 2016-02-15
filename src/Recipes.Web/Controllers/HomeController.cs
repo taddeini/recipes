@@ -6,8 +6,8 @@ namespace Recipes.Web.Controllers
     {
         [HttpGet]
         public IActionResult Index()
-        {                        
-            return new FileContentResult(System.IO.File.ReadAllBytes("dist/index.htm"), "text/html");
+        {
+            return View();
         }
     }
 }

@@ -1,42 +1,52 @@
-﻿/// <binding AfterBuild='build' ProjectOpened='watch-less' />
+﻿/// <binding ProjectOpened='watch-less' BeforeBuild='build' />
 var gulp = require('gulp'),
     del = require('del'),
     fs = require('fs'),
-    sequence = require('run-sequence'),
-    watch = require('gulp-watch'),
-    useref = require('gulp-useref'),
+    concat = require('gulp-concat'),
+    sequence = require('run-sequence'),    
+    uglify = require('gulp-uglify'),
+    minify = require('gulp-cssnano'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    reactify = require('reactify'),
+    browserify = require('browserify'),
     less = require('gulp-less');
 
 eval('var project = ' + fs.readFileSync('./project.json'));
+var dist_root = './' + project.webroot + '/';
 
-var src_root = __dirname + '/' + project.webroot + '/';
-var dist_root = __dirname + '/' + project.webroot + '/dist';
-
-var source = {
-    styles: src_root + 'css/',
-};
-
-var dist = {
-    styles: dist_root + 'css/',
-    scripts: dist_root + 'scripts/'
-}
-
-gulp.task('less', function () {
-    return gulp.src(source.styles + '**/*.less')
-       .pipe(less())
-       .pipe(gulp.dest(source.styles));
+gulp.task('clean', function () {
+    return del.sync(dist_root + '/**');
 });
 
-gulp.task('build', ['less'], function () {
+gulp.task('fonts', function () {
+    return gulp.src('./Fonts/**/*.*')
+        .pipe(gulp.dest(dist_root + '/fonts'));
+});
 
-    //TODO: copy over fonts and add min/uglify
-    return gulp.src(src_root + 'index.htm')
-        .pipe(useref())
+gulp.task('styles', function () {
+    return gulp.src(
+        [
+            'node_modules/skeleton-css/css/normalize.css',
+            'node_modules/skeleton-css/css/skeleton.css',
+            './Styles/main.less'
+        ])        
+        .pipe(less())
+        .pipe(concat('app.css'))
+        .pipe(minify())
+        .pipe(gulp.dest(dist_root + '/css'));
+});
+
+gulp.task('pre-build', function () {
+    return sequence('clean', 'fonts', 'styles');    
+});
+
+gulp.task('build', ['pre-build'], function () {
+    return browserify('./Scripts/app.jsx')
+        .transform(reactify)
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(buffer())
+        .pipe(uglify())
         .pipe(gulp.dest(dist_root));
 });
-
-gulp.task('watch-less', function () {
-    return watch(source.styles + '*.less', function () {
-        sequence('less');
-    });
-})

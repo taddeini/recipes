@@ -48,15 +48,15 @@ namespace Recipes
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
         {
             loggerfactory.AddSerilog();
-            
+
+            app.UseStaticFiles();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseStaticFiles();
+            });            
         }
 
         // Entry point for the application.
