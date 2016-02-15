@@ -1,19 +1,35 @@
 ﻿var React = require('react');
-
+var Reflux = require('reflux');
+var RecipeActions = require('../../actions/recipeActions.js');
+var RecipeDetailStore = require('../../stores/recipeDetailStore.js');
 var Ingredients = require('./ingredients.jsx');
 var Directions = require('./directions.jsx');
 
 var RecipeDetail = React.createClass({
+    mixins: [Reflux.ListenerMixin],
+
     getInitialState: function () {
         return {
-            title: 'Chicken Cacciatore',
-            description: 'Semper urna. In nec maximus metus. Proin mi dolor, pellentesque non euismod quis, tristique eu quam. Vivamus dapibus faucibus mattis. Maecenas scelerisque quam in ex scelerisque, sit amet ultrices felis elementum.',
-            serves: 12,
-            prepTime: 30,
-            totalTime: 45,
+            title: '',
+            description: '',
+            totalTime: 0,
+            prepTime: 0,
+            serves: 0,
             ingredients: [],
             directions: []
-        }
+        };
+    },
+
+    componentWillMount: function () {
+        RecipeActions.load();
+    },
+
+    componentDidMount: function () {
+        this.listenTo(RecipeDetailStore, this.onRecipeDetailsChanged);
+    },
+
+    onRecipeDetailsChanged: function () {
+        this.setState(RecipeDetailStore.getRecipes()[0]);
     },
 
     render: function () {

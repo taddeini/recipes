@@ -1,6 +1,5 @@
 ﻿var React = require('react');
 var RouterMixin = require('react-mini-router').RouterMixin;
-
 var Search = require('./search/search.jsx');
 var RecipeDetail = require('./recipeDetail/recipeDetail.jsx');
 
