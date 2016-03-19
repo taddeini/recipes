@@ -4,24 +4,24 @@ var Search = require('./search/search.jsx');
 var RecipeDetail = require('./recipeDetail/recipeDetail.jsx');
 
 var AppRouter = React.createClass({
-    mixins: [RouterMixin],
+   mixins: [RouterMixin],
 
-    routes: {
-        '/recipe/:urlTitle?': 'recipeDetail',
-        '/': 'search'
-    },
+   routes: {
+      '/recipe/:urlTitle?': 'recipeDetail',
+      '/': 'search'
+   },
 
-    search: function () {
-        return <Search />;
-    },
+   search: function () {
+      return <Search />;
+   },
 
-    recipeDetail: function (urlTitle) {
-        return <RecipeDetail urlTitle={urlTitle } />;
-    },
+   recipeDetail: function (urlTitle) {
+      return <RecipeDetail urlTitle={urlTitle }/>;
+   },
 
-    render: function () {
-        return this.renderCurrentRoute();
-    }
+   render: function () {
+      return this.renderCurrentRoute();
+   }
 });
 
 module.exports = AppRouter;
