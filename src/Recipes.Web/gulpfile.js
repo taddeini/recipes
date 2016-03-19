@@ -43,7 +43,7 @@ gulp.task('pre-build', function () {
 });
 
 gulp.task('build', ['pre-build'], function () {
-   return browserify('./Scripts/components/app.jsx')
+   return browserify('./Scripts/App.jsx')
       .transform(reactify)
       .bundle()
       .pipe(source('app.js'))

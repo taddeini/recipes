@@ -6,7 +6,7 @@ var Search = React.createClass({
          <div id='search'>
             <h1>Find a Recipe</h1>
             <form>
-               <input type='search' autoFocus placeholder='Search by name or ingredient...' />
+               <input type='search' autoFocus placeholder='Search by recipe title or ingredient...' />
                <span className='search-icon fa fa-search' />
             </form>
          </div>

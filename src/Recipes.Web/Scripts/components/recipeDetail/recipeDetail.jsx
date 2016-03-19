@@ -1,9 +1,9 @@
 ﻿var React = require('react');
 var Reflux = require('reflux');
-var RecipeActions = require('../../actions/recipeActions.js');
-var RecipeDetailStore = require('../../stores/recipeDetailStore.js');
-var Ingredients = require('./ingredients.jsx');
-var Directions = require('./directions.jsx');
+var RecipeActions = require('../../actions/RecipeActions.js');
+var RecipeDetailStore = require('../../stores/RecipeStore.js');
+var Ingredients = require('./Ingredients.jsx');
+var Directions = require('./Directions.jsx');
 
 var RecipeDetail = React.createClass({
    mixins: [Reflux.ListenerMixin],

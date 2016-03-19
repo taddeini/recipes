@@ -1,5 +1,5 @@
 ﻿var Reflux = require('reflux');
-var RecipeActions = require('../actions/recipeActions.js');
+var RecipeActions = require('../actions/RecipeActions.js');
 var _ = require('underscore');
 
 var RecipeDetailStore = Reflux.createStore({
