@@ -13,7 +13,7 @@ module.exports = function (env) {
   app.use(compression());
 
   // Routes
-  app.use('/', express.static(path.join(__dirname, '../dist')));
+  app.use('/', express.static(path.join(__dirname, '../../dist')));
   require('./controllers/index')(app);
 
   return app;
