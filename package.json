@@ -1,0 +1,30 @@
+{
+  "name": "recipes",
+  "version": "0.1.0",
+  "dependencies": {
+    "compression": "^1.6.1",
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "font-awesome": "^4.5.0",
+    "path": "^0.12.7",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-mini-router": "^2.0.0",
+    "reflux": "^0.3.0",
+    "skeleton-css": "^2.0.4",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "del": "^1.2.0",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-less": "^3.0.3",
+    "gulp-uglify": "^1.5.2",
+    "reactify": "^1.1.1",
+    "run-sequence": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

@@ -1,15 +1,1 @@
-[Oo]bj/
-[Bb]in/
-.nuget/
-.vs/
-_ReSharper.*
-packages/
-artifacts/
-tools/MongoDB/*
-tools/EventStore/*
 node_modules
-*.user
-*.suo
-*.userprefs
-*DS_Store
-*.sln.ide
