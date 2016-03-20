@@ -3,26 +3,26 @@ var RecipeActions = require('../actions/RecipeActions.js');
 var _ = require('underscore');
 
 var RecipeDetailStore = Reflux.createStore({
-   listenables: [RecipeActions],
+  listenables: [RecipeActions],
 
-   init: function () {
-      this.recipes = [];
-   },
+  init: function() {
+    this.recipes = [];
+  },
 
-   onLoadCompleted: function (recipes) {
-      this.recipes = recipes;
-      this.trigger();
-   },
+  onLoadCompleted: function(recipes) {
+    this.recipes = recipes;
+    this.trigger();
+  },
 
-   getRecipes: function () {
-      return this.recipes;
-   },
+  getRecipes: function() {
+    return this.recipes;
+  },
 
-   getRecipeByUrlTitle: function (urlTitle) {
-      return _.find(this.recipes, function (recipe) {
-         return (recipe.urlTitle === urlTitle);
-      }) || {};
-   }
+  getRecipeByUrlTitle: function(urlTitle) {
+    return _.find(this.recipes, function(recipe) {
+      return (recipe.urlTitle === urlTitle);
+    }) || {};
+  }
 });
 
 module.exports = RecipeDetailStore;

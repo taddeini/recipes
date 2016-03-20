@@ -6,12 +6,10 @@
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
-    "Serilog.Framework.Logging": "1.0.0-rc1-final-*",
-    "Recipes.Domain": "1.0-*"
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final"
   },
   "frameworks": {
-    "dnx451": { }
+    "dnx451": {}
   },
   "exclude": [
     "wwwroot",
@@ -27,6 +25,9 @@
     "web": "Microsoft.AspNet.Server.Kestrel"
   },
   "scripts": {
-    "prepublish": [ "npm install", "gulp build" ]
+    "prepublish": [
+      "npm install",
+      "gulp build"
+    ]
   }
 }

@@ -2,4 +2,4 @@
 var ReactDOM = require('react-dom');
 var AppRouter = require('./components/AppRouter.jsx');
 
-ReactDOM.render(<AppRouter />, document.getElementById('main-content'));
+ReactDOM.render(<AppRouter history={true} />, document.getElementById('main-content'))
