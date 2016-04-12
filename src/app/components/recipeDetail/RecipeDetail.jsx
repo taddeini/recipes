@@ -23,7 +23,7 @@ var RecipeDetail = React.createClass({
 
   render: function() {
     return (
-      <div id='recipeDetail'>
+      <div id='recipeDetail' className='container'>
         <section id='intro'>
           <h1>{this.state.title}</h1>
           <div className='row facts'>

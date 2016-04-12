@@ -24,7 +24,7 @@ var Search = React.createClass({
 
   render: function() {
     return (
-      <div id='search'>
+      <div id='search' className='container'>
         <h1>Find a Recipe</h1>
         <form>
           <input type='search' autoFocus placeholder='Search by recipe title or ingredient...' />
