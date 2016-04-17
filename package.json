@@ -2,7 +2,8 @@
   "name": "recipes",
   "version": "0.1.0",
   "scripts": {
-    "build": "webpack --display-chunks"
+    "build": "webpack --display-modules --display-chunks",
+    "dev": "webpack-dev-server --inline --hot"
   },
   "dependencies": {
     "compression": "^1.6.1",
