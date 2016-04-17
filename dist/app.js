@@ -8,12 +8,13 @@ webpackJsonp([0],{
 	__webpack_require__(3);
 	__webpack_require__(7);
 	__webpack_require__(9);
+	__webpack_require__(17);
 
-	var React = __webpack_require__(13);
-	var ReactDOM = __webpack_require__(170);
-	var AppRouter = __webpack_require__(171);
+	var React = __webpack_require__(21);
+	var ReactDOM = __webpack_require__(178);
+	var AppRouter = __webpack_require__(179);
 
-	ReactDOM.render(React.createElement(AppRouter, { history: 'true' }), document.getElementById('main'));
+	ReactDOM.render(React.createElement(AppRouter, null), document.getElementById('main'));
 
 /***/ },
 
@@ -38,26 +39,33 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 170:
+/***/ 17:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 178:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(15);
+	module.exports = __webpack_require__(23);
 
 
 /***/ },
 
-/***/ 171:
+/***/ 179:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(13);
-	var RouterMixin = __webpack_require__(172).RouterMixin;
-	var Search = __webpack_require__(182);
-	var NotFound = __webpack_require__(206);
-	var RecipeDetail = __webpack_require__(207);
+	var React = __webpack_require__(21);
+	var RouterMixin = __webpack_require__(180).RouterMixin;
+	var Search = __webpack_require__(190);
+	var NotFound = __webpack_require__(214);
+	var RecipeDetail = __webpack_require__(215);
 
 	var AppRouter = React.createClass({
 	  displayName: 'AppRouter',
@@ -90,26 +98,26 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 172:
+/***/ 180:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    RouterMixin: __webpack_require__(173),
-	    navigate: __webpack_require__(180)
+	    RouterMixin: __webpack_require__(181),
+	    navigate: __webpack_require__(188)
 	};
 
 /***/ },
 
-/***/ 173:
+/***/ 181:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(13),
-	    ReactDOM = __webpack_require__(170),
-	    EventListener = __webpack_require__(174),
-	    getEventTarget = __webpack_require__(93),
-	    pathToRegexp = __webpack_require__(176),
-	    urllite = __webpack_require__(178),
-	    detect = __webpack_require__(179);
+	var React = __webpack_require__(21),
+	    ReactDOM = __webpack_require__(178),
+	    EventListener = __webpack_require__(182),
+	    getEventTarget = __webpack_require__(101),
+	    pathToRegexp = __webpack_require__(184),
+	    urllite = __webpack_require__(186),
+	    detect = __webpack_require__(187);
 
 	var PropValidation = {
 	    path: React.PropTypes.string,
@@ -357,7 +365,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 174:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -381,7 +389,7 @@ webpackJsonp([0],{
 
 	'use strict';
 
-	var emptyFunction = __webpack_require__(175);
+	var emptyFunction = __webpack_require__(183);
 
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -444,11 +452,11 @@ webpackJsonp([0],{
 	};
 
 	module.exports = EventListener;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
 
 /***/ },
 
-/***/ 175:
+/***/ 183:
 /***/ function(module, exports) {
 
 	/**
@@ -492,10 +500,10 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 176:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
-	var isarray = __webpack_require__(177)
+	var isarray = __webpack_require__(185)
 
 	/**
 	 * Expose `pathToRegexp`.
@@ -889,7 +897,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 177:
+/***/ 185:
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -899,7 +907,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 178:
+/***/ 186:
 /***/ function(module, exports) {
 
 	(function() {
@@ -971,7 +979,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 179:
+/***/ 187:
 /***/ function(module, exports) {
 
 	var canUseDOM = !!(
@@ -994,11 +1002,11 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 180:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
-	var detect = __webpack_require__(179);
-	var event = __webpack_require__(181);
+	var detect = __webpack_require__(187);
+	var event = __webpack_require__(189);
 
 	module.exports = function triggerUrl(url, silent) {
 	    if (detect.hasHashbang()) {
@@ -1016,10 +1024,10 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 181:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
-	var detect = __webpack_require__(179);
+	var detect = __webpack_require__(187);
 
 	module.exports = {
 	    createEvent: function(name) {
@@ -1036,18 +1044,18 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 182:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var React = __webpack_require__(13);
-	var Reflux = __webpack_require__(183);
-	var RecipeActions = __webpack_require__(202);
-	var RecipeStore = __webpack_require__(203);
-	var SearchResult = __webpack_require__(205);
+	var React = __webpack_require__(21);
+	var Reflux = __webpack_require__(191);
+	var RecipeActions = __webpack_require__(210);
+	var RecipeStore = __webpack_require__(211);
+	var SearchResult = __webpack_require__(213);
 
 	var Search = React.createClass({
 	  displayName: 'Search',
@@ -1099,12 +1107,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 202:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Reflux = __webpack_require__(183);
+	var Reflux = __webpack_require__(191);
 
 	var RecipeActions = Reflux.createActions({
 	  load: { children: ['completed', 'failed'] }
@@ -1140,14 +1148,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 203:
+/***/ 211:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Reflux = __webpack_require__(183);
-	var RecipeActions = __webpack_require__(202);
-	var _ = __webpack_require__(204);
+	var Reflux = __webpack_require__(191);
+	var RecipeActions = __webpack_require__(210);
+	var _ = __webpack_require__(212);
 
 	var RecipeDetailStore = Reflux.createStore({
 	  listenables: [RecipeActions],
@@ -1176,15 +1184,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 205:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(13);
+	var React = __webpack_require__(21);
+	var navigate = __webpack_require__(180).navigate;
 
 	var SearchResult = React.createClass({
 	  displayName: 'SearchResult',
+
+	  onRecipeClick: function onRecipeClick(evt) {
+	    evt.preventDefault();
+	    navigate('/recipes/' + this.props.urlTitle);
+	  },
 
 	  render: function render() {
 	    return React.createElement(
@@ -1192,7 +1206,7 @@ webpackJsonp([0],{
 	      null,
 	      React.createElement(
 	        'a',
-	        { href: 'recipes/' + this.props.urlTitle },
+	        { href: 'javascript:void(0);', onClick: this.onRecipeClick },
 	        this.props.title
 	      )
 	    );
@@ -1203,12 +1217,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 206:
+/***/ 214:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(13);
+	var React = __webpack_require__(21);
 
 	var NotFound = React.createClass({
 	  displayName: 'NotFound',
@@ -1216,7 +1230,7 @@ webpackJsonp([0],{
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { id: 'not-found' },
+	      { id: 'notFound', className: 'container' },
 	      React.createElement(
 	        'h1',
 	        null,
@@ -1230,17 +1244,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 207:
+/***/ 215:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(13);
-	var Reflux = __webpack_require__(183);
-	var RecipeActions = __webpack_require__(202);
-	var RecipeStore = __webpack_require__(203);
-	var Ingredients = __webpack_require__(208);
-	var Directions = __webpack_require__(209);
+	var React = __webpack_require__(21);
+	var Reflux = __webpack_require__(191);
+	var RecipeActions = __webpack_require__(210);
+	var RecipeStore = __webpack_require__(211);
+	var Ingredients = __webpack_require__(216);
+	var Directions = __webpack_require__(217);
 
 	var RecipeDetail = React.createClass({
 	  displayName: 'RecipeDetail',
@@ -1346,12 +1360,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 208:
+/***/ 216:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(13);
+	var React = __webpack_require__(21);
 
 	var Ingredients = React.createClass({
 	  displayName: 'Ingredients',
@@ -1418,12 +1432,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 209:
+/***/ 217:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(13);
+	var React = __webpack_require__(21);
 
 	var Directions = React.createClass({
 	  displayName: 'Directions',

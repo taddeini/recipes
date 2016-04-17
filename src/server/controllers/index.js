@@ -1,6 +1,5 @@
 module.exports = function (app) {
-  app.get('*', function (req, res) {
-    console.log(req.path);
+  app.get('*', function (req, res) {    
     res.render('index');
   });
 };  

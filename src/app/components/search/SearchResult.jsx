@@ -1,9 +1,15 @@
 ﻿var React = require('react');
+var navigate = require('react-mini-router').navigate;
 
 var SearchResult = React.createClass({
+  onRecipeClick: function(evt) {
+    evt.preventDefault();
+    navigate('/recipes/' + this.props.urlTitle);
+  },
+
   render: function() {
     return (
-      <div><a href={'recipes/' + this.props.urlTitle}>{this.props.title}</a></div>
+      <div><a href='javascript:void(0);' onClick={this.onRecipeClick}>{this.props.title}</a></div>
     );
   }
 });
