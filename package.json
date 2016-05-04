@@ -3,19 +3,17 @@
   "version": "0.1.0",
   "scripts": {
     "build": "webpack --display-modules --display-chunks",
-    "dev": "webpack-dev-server --inline --hot"
+    "dev": "webpack-dev-server --inline --hot --content-base dist/"
   },
   "dependencies": {
+    "babel-core": "^6.7.6",
     "compression": "^1.6.1",
     "express": "^4.13.4",
-    "express-handlebars": "^3.0.0",
     "font-awesome": "^4.5.0",
-    "path": "^0.12.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-mini-router": "^2.0.0",
     "reflux": "^0.3.0",
-    "serve-favicon": "^2.3.0",
     "skeleton-css": "^2.0.4",
     "underscore": "^1.8.3"
   },
