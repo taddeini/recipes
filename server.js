@@ -1,16 +1,16 @@
-var app = require('./src/server/app');
-var http = require('http');
-var appInstance = app();
+const app = require("./src/server/app");
+const http = require("http");
+const appInstance = app();
 
-var server = http.createServer(appInstance).listen('3000', function() {
-	var host = server.address().address;
-  var port = server.address().port;
+const server = http.createServer(appInstance).listen("3000", () => {
+  const host = server.address().address;
+  const port = server.address().port;
 
-  console.log('Recipes listening at http://%s:%s', host, port);
+  console.log("Recipes listening at http://%s:%s", host, port);
 });
 
-process.on('SIGTERM', function () {
-  server.close(function () {
+process.on("SIGTERM", () => {
+  server.close(() => {
     process.exit(0);
   });
 });
