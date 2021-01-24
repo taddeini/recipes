@@ -1,15 +1,15 @@
 const webpack = require("webpack");
+const path = require("path");
 const production = process.env.NODE_ENV === "production";
 
 module.exports = {
   mode: production ? "production" : "development",
   devtool: production ? false : "source-map",
   entry: {
-    app: "/src/app/App.js",
-    vendor: ["react", "react-dom"],
+    app: "./src/client/App.js",
   },
   output: {
-    path: "/dist",
+    path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
   },
   module: {
