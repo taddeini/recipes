@@ -8,5 +8,9 @@ module.exports = (env) => {
   app.use(compression());
   app.use(bodyParser.json());
 
+  app.get("/", (req, res) => {
+    res.send("Hello Recipes!");
+  });
+
   return app;
 };
