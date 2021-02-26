@@ -10,12 +10,5 @@ phases:
 
 artifacts:
   files:
-    - "**/*"
-  base-directory: .next
-  name: .next
-
-  # secondary-artifacts:
-  #   static_assets:
-  #     files:
-  #       - "**/*"
-  #     base-directory: src/static-assets
+    - .next/**/*
+    - package.json
