@@ -14,8 +14,8 @@ artifacts:
   base-directory: .next
   name: .next
 
-  secondary-artifacts:
-    static_assets:
-      files:
-        - "**/*"
-      base-directory: src/static-assets
+  # secondary-artifacts:
+  #   static_assets:
+  #     files:
+  #       - "**/*"
+  #     base-directory: src/static-assets
