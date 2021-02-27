@@ -1,5 +1,12 @@
 .search_container {
   margin-bottom: 40px;
+
+  label {
+    // label is for accessibility only, so we make sure it's not visible otherwise
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 }
 
 input.search_input {

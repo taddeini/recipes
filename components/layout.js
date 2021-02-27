@@ -6,7 +6,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 export default function Layout({ children }) {
   return (
-    <>
+    <html lang="en-US">
       <Head>
         <title>Recipes</title>
         <meta charSet="utf-8" />
@@ -28,6 +28,6 @@ export default function Layout({ children }) {
         </Link>
       </header>
       <main>{children}</main>
-    </>
+    </html>
   );
 }

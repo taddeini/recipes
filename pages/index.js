@@ -16,9 +16,10 @@ export default function Home({ recipes }) {
   return (
     <Layout>
       <div className={styles.search_container}>
+        <label htmlFor="search">search by title or ingredient</label>
         <input
+          id="search"
           className={styles.search_input}
-          autoFocus
           type="search"
           placeholder="search by title or ingredient"
         />
