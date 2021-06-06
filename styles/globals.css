@@ -4,13 +4,6 @@ body {
   margin: 0 15px 40px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: rgb(18, 18, 18);
-}
-
 h1 {
   font-size: 2rem;
   margin-top: 10px;
@@ -19,11 +12,6 @@ h1 {
 h2 {
   color: #646f6f;
   font-weight: normal;
-}
-
-a,
-a:visited {
-  color: #de1b1b;
 }
 
 ul,
@@ -47,7 +35,6 @@ section {
 input {
   border: solid 1px #87aab9;
   border-radius: 4px;
-  color: #646f6f;
   font-size: 22px;
   font-family: Rockwell, serif;
   padding: 10px;
