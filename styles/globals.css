@@ -1,7 +1,16 @@
 body {
-  font-family: Rockwell, serif;
+  font-family: Verdana, sans-serif;
   color: rgb(18, 18, 18);
   margin: 0 15px 40px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Tahoma, sans-serif;
 }
 
 h1 {
@@ -36,8 +45,6 @@ input {
   border: solid 1px #87aab9;
   border-radius: 4px;
   font-size: 22px;
-  font-family: Rockwell, serif;
-  padding: 10px;
 }
 
 input:focus {
